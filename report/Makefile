@@ -1,6 +1,6 @@
 LATEX = pdflatex
 
-all: report.pdf
+all: github.pdf
 
 %.pdf %.aux %.bbl: %.tex *.bib
 	$(LATEX) $<
