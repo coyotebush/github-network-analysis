@@ -33,6 +33,13 @@ of organizations (groups of users) and languages \cite{rodrigues12}. We approach
 the problem somewhat differently by constructing a graph of relationships
 between repositories and then examining its community structure.
 
+Methods for generating the the project-project and user-user networks are
+described in \cite{thung2013} and used to find nodes with high PageRank values.
+A weighted community detection algorithm for use in evaluating the GitHub
+network is described in \cite{marrama}. Other analysis of the GitHub network
+includes examination of different types of collaboration \cite{khadke} and
+ranking and recommendation of developers \cite{sarma}.
+
 \section*{Methodology}
 \begin{itemize}
     \item Use Google BigQuery to obtain data on the top $n$ GitHub repositories
@@ -53,25 +60,27 @@ This project is being developed both as the final project for a course in social
 network analysis \cite{snacourse}, and as an entry in the GitHub Data Challenge
 \cite{doll13}.
 
-\begin{thebibliography}{9}
-\bibitem{snacourse}
-    Adamic, Lada. ``Social Network Analysis''.
-    \url{https://www.coursera.org/course/sna}
-\bibitem{doll12}
-    Doll, Brian. ``Programming Language Correlation Dataset''.
-    \url{https://gist.github.com/briandoll/e0637fff9c8eec988528}
-\bibitem{doll13}
-    Doll, Brian. ``The GitHub Data Challenge II''.
-    \url{https://github.com/blog/1450}
-\bibitem{github}
-    GitHub. \url{https://github.com/}
-\bibitem{rodrigues12}
-    Rodrigues, Eduarda Mendes. ``GitHub Data''.
-    \url{http://labs.sapo.pt/networds/2012/05/09/github-data/}
-\bibitem{shah13}
-    Shah, Akshay. ``Language Use on GitHub''.
-    \url{http://datahackermd.com/2013/language-use-on-github/}
-\end{thebibliography}
+%\begin{thebibliography}{9}
+%\bibitem{snacourse}
+    %Adamic, Lada. ``Social Network Analysis''.
+    %\url{https://www.coursera.org/course/sna}
+%\bibitem{doll12}
+    %Doll, Brian. ``Programming Language Correlation Dataset''.
+    %\url{https://gist.github.com/briandoll/e0637fff9c8eec988528}
+%\bibitem{doll13}
+    %Doll, Brian. ``The GitHub Data Challenge II''.
+    %\url{https://github.com/blog/1450}
+%\bibitem{github}
+    %GitHub. \url{https://github.com/}
+%\bibitem{rodrigues12}
+    %Rodrigues, Eduarda Mendes. ``GitHub Data''.
+    %\url{http://labs.sapo.pt/networds/2012/05/09/github-data/}
+%\bibitem{shah13}
+    %Shah, Akshay. ``Language Use on GitHub''.
+    %\url{http://datahackermd.com/2013/language-use-on-github/}
+%\end{thebibliography}
 
+\bibliographystyle{plain}
+\bibliography{github}
 \end{document}
 % vim: ts=4 sts=4 sw=4 et tw=80
