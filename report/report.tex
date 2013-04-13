@@ -37,7 +37,9 @@ between repositories and then examining its community structure.
 \begin{itemize}
     \item Use Google BigQuery to obtain data on the top $n$ GitHub repositories
         and all commits made to them, including data on the primary programming
-        language used in each repository and the user who made each commit.
+        language used in each repository and the user who made each commit
+        (where $n$ is small enough to make computation and visualization
+        feasible).
     \item Transform this data into a weighted network of repositories
     \item Visualize the network, with nodes colored by language
     \item Determine the modularity (and similar measures of community structure)
