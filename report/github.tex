@@ -59,15 +59,15 @@ a user adds new changes to a repository, and \emph{pull-request merges}, where a
 user without push access proposes changes that are then reviewed and added to
 the repository by another user who does.\footnote{In preliminary analysis,
 accounting only for pushes resulted in a relatively disconnected graph,
-presumably because few users have push access to more than a few related
+presumably because most users have push access to only a few related
 repositories.} The nature of these two types of collaborations is examined in
 \cite{khadke}. We first computed contribution weights $C(u, r)$ for
 user-repository pairs as the number of times the user has either pushed to the
-repository or had a pull-request accepted to the repository.\footnote{Note that
-this counts pull-request merges for both the user who submitted the request and
-the user who pushed the merge; this seems acceptable, since it accounts for the
-work involved in reviewing a pull-request and better ties repository maintainers
-to their repositories.}
+repository or had a pull-request accepted to the repository during
+2012.\footnote{This counts pull-request merges for both the user who submitted
+the request and the user who pushed the merge; this seems acceptable, since it
+accounts for the work involved in reviewing a pull-request and better ties
+repository maintainers to their repositories.}
 
 Weights between repositories were then computed by examining users who have
 contributed to each of a pair of repositories, and defining the weight between
