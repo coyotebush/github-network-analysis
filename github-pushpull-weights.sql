@@ -11,7 +11,7 @@ FROM
     (SELECT repository_url, MAX(created_at) AS created_at
       FROM [publicdata:samples.github_timeline]
       WHERE PARSE_UTC_USEC(created_at) >= PARSE_UTC_USEC('2012-01-01 00:00:00')
-          AND PARSE_UTC_USEC(created_at) < PARSE_UTC_USEC('2013-01-01 00:00:00')
+        AND PARSE_UTC_USEC(created_at) < PARSE_UTC_USEC('2013-01-01 00:00:00')
       GROUP EACH BY repository_url) AS repo_last_events
 
     JOIN EACH
@@ -39,7 +39,7 @@ FROM
 
     -- Merged pull requests
     (SELECT payload_pull_request_user_login AS user, repository_url,
-        COUNT(repository_url) AS weight
+          COUNT(repository_url) AS weight
       FROM [publicdata:samples.github_timeline]
       WHERE type='PullRequestEvent'
         AND payload_action='closed'
