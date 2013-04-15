@@ -81,7 +81,11 @@ where $W$ gives the weight of the edge between two repositories, $C$ is the
 contribution weight defined previously, and $U$ is the set of all GitHub users
 who have contributed to any of these top repositories.
 
-Code for these queries is included in appendix~\ref{app:sql}.
+The remaining analysis was performed using Python and the igraph library, and
+visualizations were created using Gephi. The SQL and Python code used is
+reproduced in appendix~\ref{app:code}, and all code and data files are available
+in this project's repository at
+\url{https://github.com/coyotebush/github-network-analysis}.
 
 \begin{itemize}
     \item Visualize the network, with nodes colored by language
@@ -102,8 +106,8 @@ network analysis \cite{snacourse}, and as an entry in the GitHub Data Challenge
 \onecolumn
 \appendix
 \section{Source code}
+\label{app:code}
 \subsection{SQL queries}
-\label{app:sql}
 
 \subsubsection{\texttt{github-repo-attributes.sql}: Fetch data on top
 repositories}
