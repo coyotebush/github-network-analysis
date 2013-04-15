@@ -1,6 +1,14 @@
 \documentclass[twocolumn]{article}
 \usepackage{fullpage}
 \usepackage{hyperref}
+\usepackage{courier}
+\usepackage[T1]{fontenc}
+\usepackage{listings}
+\lstset{
+    basicstyle=\ttfamily\small,
+    keywordstyle=\bfseries,
+    breaklines=true
+}
 
 \title{Programming language communities on GitHub}
 \author{Corey Ford}
@@ -8,7 +16,7 @@
 \begin{document}
 \maketitle
 
-\section*{Introduction}
+\section{Introduction}
 
 GitHub \cite{github} facilitates collaborative software development and hosts
 the source code repositories, as well as other development activities, of many
@@ -40,7 +48,7 @@ network is described in \cite{marrama}. Other analysis of the GitHub network
 includes examination of different types of collaboration \cite{khadke} and
 ranking and recommendation of developers \cite{sarma}.
 
-\section*{Methodology}
+\section{Methodology}
 \begin{itemize}
     \item Use Google BigQuery to obtain data on the top $n$ GitHub repositories
         and all commits made to them, including data on the primary programming
@@ -55,7 +63,7 @@ ranking and recommendation of developers \cite{sarma}.
         the programming language composition of the resulting structure.
 \end{itemize}
 
-\section*{Acknowledgements}
+\section{Acknowledgements}
 This project is being developed both as the final project for a course in social
 network analysis \cite{snacourse}, and as an entry in the GitHub Data Challenge
 \cite{doll13}.
@@ -82,5 +90,12 @@ network analysis \cite{snacourse}, and as an entry in the GitHub Data Challenge
 
 \bibliographystyle{plain}
 \bibliography{github}
+
+\onecolumn
+\appendix
+\section{Source code}
+\subsection{\texttt{github-pushpull-weights.sql}: SQL query to fetch data on users and
+repositories}
+\lstinputlisting[language=SQL]{../github-pushpull-weights.sql}
 \end{document}
 % vim: ts=4 sts=4 sw=4 et tw=80
