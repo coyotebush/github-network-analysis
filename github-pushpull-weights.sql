@@ -1,13 +1,10 @@
-SELECT user, repo_info.repository_url AS repository, repository_watchers, 
-    repository_language, SUM(weight) as weight
+SELECT user, repo_info.repository_url AS repository, SUM(weight) as weight
 FROM
-  
-  (SELECT repo_last_events.repository_url AS repository_url,
-        repo_languages_watchers.repository_language AS repository_language,
-        repo_languages_watchers.repository_watchers AS repository_watchers
+
+  -- Get repositories with over 1000 stars as of the end of 2012
+  (SELECT repo_last_events.repository_url AS repository_url
     FROM
 
-    -- Get language and number of stars as of the last event per repository
     (SELECT repository_url, MAX(created_at) AS created_at
       FROM [publicdata:samples.github_timeline]
       WHERE PARSE_UTC_USEC(created_at) >= PARSE_UTC_USEC('2012-01-01 00:00:00')
@@ -16,10 +13,10 @@ FROM
 
     JOIN EACH
 
-    (SELECT repository_url, repository_language, repository_watchers, created_at
-      FROM [publicdata:samples.github_timeline]) AS repo_languages_watchers
-    ON repo_last_events.repository_url = repo_languages_watchers.repository_url
-      AND repo_last_events.created_at = repo_languages_watchers.created_at
+    (SELECT repository_url, repository_watchers, created_at
+      FROM [publicdata:samples.github_timeline]) AS repo_watchers
+    ON repo_last_events.repository_url = repo_watchers.repository_url
+      AND repo_last_events.created_at = repo_watchers.created_at
 
     WHERE repository_watchers >= 1000
   ) AS repo_info
@@ -50,7 +47,7 @@ FROM
   ) AS events
   ON repo_info.repository_url = events.repository_url
 
-GROUP EACH BY user, repository, repository_watchers, repository_language;
+GROUP EACH BY user, repository;
 
 -- publicdata:samples.github_timeline - 3033 rows, 377 repos, 2792 users
 
