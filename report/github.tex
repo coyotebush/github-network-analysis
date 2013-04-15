@@ -39,8 +39,8 @@ user via their repositories to determine conditional probabilities \cite{doll12}
 or correlations \cite{shah13} relating to use of language pairs. A visualization
 of the bipartite graph of organizations (groups of users) and languages
 \cite{rodrigues12} won third place in the 2012 GitHub Data Challenge . We
-approach the problem somewhat differently by constructing a graph of
-relationships between repositories and then examining its community structure.
+approach the problem somewhat differently by constructing the one-mode network
+of repositories and examining its community structure.
 
 Methods for generating the the project-project and user-user networks are
 described in \cite{thung2013} and used to find nodes with high PageRank values.
@@ -59,15 +59,14 @@ a user adds new changes to a repository, and \emph{pull-request merges}, where a
 user without push access proposes changes that are then reviewed and added to
 the repository by another user who does.\footnote{In preliminary analysis,
 accounting only for pushes resulted in a relatively disconnected graph,
-presumably because most users have push access to only a few related
-repositories.} The nature of these two types of collaborations is examined in
-\cite{khadke}. We first computed contribution weights $C(u, r)$ for
+presumably because, as examined in \cite{khadke}, most users have push access to only a few related
+repositories.} We first computed contribution weights $C(u, r)$ for
 user-repository pairs as the number of times the user has either pushed to the
 repository or had a pull-request accepted to the repository during
 2012.\footnote{This counts pull-request merges for both the user who submitted
 the request and the user who pushed the merge; this seems acceptable, since it
-accounts for the work involved in reviewing a pull-request and better ties
-repository maintainers to their repositories.}
+accounts for the work of reviewing a pull-request and better identifies
+repository maintainers.}
 
 Weights between repositories were then computed by examining users who have
 contributed to each of a pair of repositories, and defining the weight between
