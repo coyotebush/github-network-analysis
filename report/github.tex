@@ -34,20 +34,18 @@ collaborations between projects using the same programming language (or
 especially the same software framework) will be common, resulting in communities
 identified by a programming language.
 
-Some recent work has examined the programming languages associated with each
+Some recent analyses have examined the programming languages associated with each
 user via their repositories to determine conditional probabilities \cite{doll12}
-or correlations \cite{shah13} relating to the use of language pairs. One winner
-of the 2012 GitHub Data Challenge created a visualization of the bipartite graph
-of organizations (groups of users) and languages \cite{rodrigues12}. We approach
-the problem somewhat differently by constructing a graph of relationships
-between repositories and then examining its community structure.
+or correlations \cite{shah13} relating to use of language pairs. A visualization
+of the bipartite graph of organizations (groups of users) and languages
+\cite{rodrigues12} won third place in the 2012 GitHub Data Challenge . We
+approach the problem somewhat differently by constructing a graph of
+relationships between repositories and then examining its community structure.
 
 Methods for generating the the project-project and user-user networks are
 described in \cite{thung2013} and used to find nodes with high PageRank values.
 A weighted community detection algorithm for use in evaluating the GitHub
-network is described in \cite{marrama}. Other analysis of the GitHub network
-includes examination of different types of collaboration \cite{khadke} and
-ranking and recommendation of developers \cite{sarma}.
+network is described in \cite{marrama}.
 
 \section{Methodology}
 We used Google BigQuery on the GitHub archive to obtain data on GitHub
@@ -62,7 +60,8 @@ user without push access proposes changes that are then reviewed and added to
 the repository by another user who does.\footnote{In preliminary analysis,
 accounting only for pushes resulted in a relatively disconnected graph,
 presumably because few users have push access to more than a few related
-repositories.} We first computed contribution weights $C(u, r)$ for
+repositories.} The nature of these two types of collaborations is examined in
+\cite{khadke}. We first computed contribution weights $C(u, r)$ for
 user-repository pairs as the number of times the user has either pushed to the
 repository or had a pull-request accepted to the repository.\footnote{Note that
 this counts pull-request merges for both the user who submitted the request and
