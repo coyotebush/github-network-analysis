@@ -1,6 +1,7 @@
 \documentclass[twocolumn]{article}
 \usepackage{fullpage}
 \usepackage{hyperref}
+\usepackage{amsmath}
 \usepackage{courier}
 \usepackage[T1]{fontenc}
 \usepackage{listings}
@@ -49,13 +50,43 @@ includes examination of different types of collaboration \cite{khadke} and
 ranking and recommendation of developers \cite{sarma}.
 
 \section{Methodology}
+We used Google BigQuery on the GitHub archive to obtain data on GitHub
+repositories that had received at least 1000 ``stars'' as of the end of 2012,
+including the URL, primary programming language, and number of stars for each
+repository.
+
+Using a second query, we computed a set of weighted edges between these
+repositories. This weight is based on two types of events: \emph{pushes}, where
+a user adds new changes to a repository, and \emph{pull-request merges}, where a
+user without push access proposes changes that are then reviewed and added to
+the repository by another user who does. (In preliminary analysis, accounting
+only for pushes resulted in a relatively disconnected graph, presumably because
+few users have push access to more than a few related repositories.)
+
+We first computed contribution weights $C(u, r)$ for user-repository pairs as the
+number of times the user has either pushed to the repository or had a
+pull-request accepted to the repository. Note that this counts pull-request
+merges for both the user who submitted the request and the user who pushed the
+merge; this seems acceptable, since it accounts for the work involved in
+reviewing a pull-request and better ties repository maintainers to their
+repositories.
+
+Weights between repositories were then computed by examining users who have
+contributed to each of a pair of repositories, and defining the weight between
+repositories as the sum of all these user-repository weights. That is, the
+resulting 100+-line SQL query could be described as
+
+\begin{equation}
+    W(r1, r2) \equiv \sum_{u \in U} C(u, r1) ??? C(u, r2)
+\end{equation}
+
+where $W$ gives the weight of the edge between two repositories, $C$ is the
+contribution weight defined previously, and $U$ is the set of all GitHub users
+who have contributed to any of these top repositories.
+
+Code for these queries is included in appendix~\ref{app:sql}.
+
 \begin{itemize}
-    \item Use Google BigQuery to obtain data on the top $n$ GitHub repositories
-        and all commits made to them, including data on the primary programming
-        language used in each repository and the user who made each commit
-        (where $n$ is small enough to make computation and visualization
-        feasible).
-    \item Transform this data into a weighted network of repositories
     \item Visualize the network, with nodes colored by language
     \item Determine the modularity (and similar measures of community structure)
         of each of the language subnetworks.
@@ -68,34 +99,22 @@ This project is being developed both as the final project for a course in social
 network analysis \cite{snacourse}, and as an entry in the GitHub Data Challenge
 \cite{doll13}.
 
-%\begin{thebibliography}{9}
-%\bibitem{snacourse}
-    %Adamic, Lada. ``Social Network Analysis''.
-    %\url{https://www.coursera.org/course/sna}
-%\bibitem{doll12}
-    %Doll, Brian. ``Programming Language Correlation Dataset''.
-    %\url{https://gist.github.com/briandoll/e0637fff9c8eec988528}
-%\bibitem{doll13}
-    %Doll, Brian. ``The GitHub Data Challenge II''.
-    %\url{https://github.com/blog/1450}
-%\bibitem{github}
-    %GitHub. \url{https://github.com/}
-%\bibitem{rodrigues12}
-    %Rodrigues, Eduarda Mendes. ``GitHub Data''.
-    %\url{http://labs.sapo.pt/networds/2012/05/09/github-data/}
-%\bibitem{shah13}
-    %Shah, Akshay. ``Language Use on GitHub''.
-    %\url{http://datahackermd.com/2013/language-use-on-github/}
-%\end{thebibliography}
-
 \bibliographystyle{plain}
 \bibliography{github}
 
 \onecolumn
 \appendix
 \section{Source code}
-\subsection{\texttt{github-pushpull-weights.sql}: SQL query to fetch data on users and
+\subsection{SQL queries}
+\label{app:sql}
+
+\subsubsection{\texttt{github-repo-attributes.sql}: Fetch data on top
 repositories}
-\lstinputlisting[language=SQL]{../github-pushpull-weights.sql}
+\lstinputlisting[language=SQL]{../github-repo-attributes.sql}
+
+\subsubsection{\texttt{github-repo-weights.sql}: Determine weights between top
+repositories}
+\lstinputlisting[language=SQL]{../github-repo-weights.sql}
+
 \end{document}
 % vim: ts=4 sts=4 sw=4 et tw=80
