@@ -16,5 +16,7 @@ JOIN EACH
   FROM [githubarchive:github.timeline]
   WHERE repository_watchers >= 1000) AS repo_languages_watchers
 ON repo_last_events.repository_url = repo_languages_watchers.repository_url
-  AND repo_last_events.created_at = repo_languages_watchers.created_at;
+  AND repo_last_events.created_at = repo_languages_watchers.created_at
+
+GROUP EACH BY repository_url, repository_language, repository_watchers;
 
