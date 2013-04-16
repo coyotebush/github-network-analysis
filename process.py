@@ -8,7 +8,7 @@ with open('repo-attributes.csv', 'rb') as repofile:
     reader = csv.DictReader(repofile)
     for repo in reader:
         g.add_vertex(name=repo['repository_url'],
-            label=repo['repository_url'],
+            label=repo['repository_url'][19:],
             language=repo['repository_language'],
             watchers=int(repo['repository_watchers']))
 
