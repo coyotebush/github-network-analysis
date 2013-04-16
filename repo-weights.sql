@@ -1,5 +1,5 @@
 SELECT t1.repository AS repository1, t2.repository AS repository2,
-    SUM(t1.weight + t2.weight) AS weight
+    SUM(SQRT(t1.weight * t2.weight)) AS weight
 FROM
   (SELECT user, repo_info.repository_url AS repository, SUM(weight) as weight
   FROM

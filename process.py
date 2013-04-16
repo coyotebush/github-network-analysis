@@ -16,7 +16,7 @@ with open('repo-weights.csv', 'rb') as edgefile:
     reader = csv.DictReader(edgefile)
     for edge in reader:
         g.add_edge(edge['repository1'], edge['repository2'],
-            weight=int(edge['weight']))
+            weight=float(edge['weight']))
 
 print g.summary()
 g.write('repositories.gml')

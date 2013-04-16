@@ -61,7 +61,7 @@ user without push access proposes changes that are then reviewed and added to
 the repository by another user who does.\footnote{In preliminary analysis,
 accounting only for pushes resulted in a relatively disconnected graph,
 presumably because, as examined in \cite{khadke}, most users have push access to only a few related
-repositories.} We first computed contribution weights $C(u, r)$ for
+repositories.} We first computed contribution weights $C_{ui}$ for
 user-repository pairs as the number of times the user has either pushed to the
 repository or had a pull-request accepted to the repository during
 2012.\footnote{This counts pull-request merges for both the user who submitted
@@ -70,17 +70,22 @@ accounts for the work of reviewing a pull-request and better identifies
 repository maintainers.}
 
 Weights between repositories were then computed by examining users who have
-contributed to each of a pair of repositories, and defining the weight between
-repositories as the sum of all these user-repository weights. That is, the
-resulting 100+-line SQL query could be described as
+contributed to each of a pair of repositories, and defining the weight of the
+edge between repositories $i$ and $j$ as the sum over all users who have
+contributed to both of the geometric mean of the number of times they have
+contributed to each. The geometric mean was chosen because it is high when the
+counts of contributions to both repositories are high, but low when either is
+low, and the impact of increasing either diminishes. That is, the the weights
+are defined by
 
 \begin{equation}
-    W(r1, r2) \equiv \sum_{u \in U} C(u, r1) ??? C(u, r2)
+    W_{ij} \equiv \sum_u \sqrt{C_{ui} \cdot C_{uj}}
 \end{equation}
 
-where $W$ gives the weight of the edge between two repositories, $C$ is the
-contribution weight defined previously, and $U$ is the set of all GitHub users
-who have contributed to any of these top repositories.
+similar to the approach of \cite{marrama}, and drawing insight from
+\cite{opsahlproj} and \cite{opsahl11}, where $W$ gives the edge weight, $C$ is
+the contribution weight defined previously, and $u$ ranges over all GitHub users
+(who have contributed to both of these repositories).
 
 The remaining analysis was performed using Python 2.7 and version 0.6.5 of the
 igraph library, and visualizations were created using Gephi 0.8.2. The SQL and
