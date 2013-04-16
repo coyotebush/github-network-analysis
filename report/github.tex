@@ -89,6 +89,14 @@ contribution weight defined previously, and $u$ ranges over all GitHub users
 (who have contributed to both of these repositories).
 
 \section{Analysis}
+The resulting graph contains 825 nodes and 3661 edges. However, for the
+remainder of the analysis we consider only the giant component of this graph,
+which contains 632 nodes and 3644 edges. This is justified by the lack of
+meaningful structure in the remainder of the graph---the remaining connected
+components comprise at most 3 nodes each---and reduces clutter both in the
+visualization (which would have many nodes floating at the edge) and the
+community detection (which would identify most of these nodes as their own
+community).
 
 \begin{itemize}
     \item Visualize the network, with nodes colored by language
