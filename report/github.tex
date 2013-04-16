@@ -5,12 +5,6 @@
 \usepackage{amsmath}
 \usepackage{courier}
 %\usepackage[T1]{fontenc}
-\usepackage{listings}
-\lstset{
-    basicstyle=\ttfamily\small,
-    keywordstyle=\bfseries,
-    breaklines=true
-}
 
 \title{Programming language communities on GitHub}
 \author{Corey Ford}
@@ -90,10 +84,9 @@ the contribution weight defined previously, and $u$ ranges over all GitHub users
 (who have contributed to both of these repositories).
 
 The remaining analysis was performed using Python 2.7 and version 0.6.5 of the
-igraph library, and visualizations were created using Gephi 0.8.2. The SQL and
-Python code used is reproduced in appendix~\ref{app:code}, and all code and data
-files are available in this project's repository at
-\url{https://github.com/coyotebush/github-network-analysis}.
+igraph library, and visualizations were created using Gephi 0.8.2. All SQL and
+Python code, along with data files, are available in this project's repository
+at \url{https://github.com/coyotebush/github-network-analysis}.
 
 \begin{itemize}
     \item Visualize the network, with nodes colored by language
@@ -110,20 +103,6 @@ network analysis \cite{snacourse}, and as an entry in the GitHub Data Challenge
 
 \bibliographystyle{plain}
 \bibliography{github}
-
-\onecolumn
-\appendix
-\section{Source code}
-\label{app:code}
-\subsection{SQL queries}
-
-\subsubsection{\texttt{repo-attributes.sql}: Fetch data on top
-repositories}
-\lstinputlisting[language=SQL]{../repo-attributes.sql}
-
-\subsubsection{\texttt{repo-weights.sql}: Determine weights between top
-repositories}
-\lstinputlisting[language=SQL]{../repo-weights.sql}
 
 \end{document}
 % vim: ts=4 sts=4 sw=4 et tw=80
