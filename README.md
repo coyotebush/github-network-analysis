@@ -4,6 +4,8 @@ GitHub Network Analysis
 An analysis and visualization of top repositories on GitHub, focused on the
 relationship between programming languages used and the network structure.
 
+Interactive visualization: <http://coyotebush.github.io/github-network-analysis/>
+
 General workflow:
 
                    BigQuery
