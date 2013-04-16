@@ -45,10 +45,10 @@ A weighted community detection algorithm for use in evaluating the GitHub
 network is described in \cite{marrama}.
 
 \section{Methodology}
-We used Google BigQuery on the GitHub archive to obtain data on GitHub
-repositories that had received at least 1000 ``stars'' as of the end of 2012,
-including the URL, primary programming language, and number of stars for each
-repository.
+We used Google BigQuery on the GitHub Archive dataset\cite{githubarchive} to
+obtain data on GitHub repositories that had received at least 1000 ``stars'' as
+of the end of 2012, including the URL, primary programming language, and number
+of stars for each repository.
 
 Using a second query, we computed a set of weighted edges between these
 repositories. This weight is based on two types of events: \emph{pushes}, where
