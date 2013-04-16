@@ -19,23 +19,23 @@ GitHub \cite{github} facilitates collaborative software development and hosts
 the source code repositories, as well as other development activities, of many
 open-source software projects.
 
-We examine the relationship between the community structure of the GitHub
-collaboration network and the programming languages used for projects. The
-question might be stated as: to what extent does the diversity of programming
-language fragment the software development community? We anticipate that
-collaborations between projects using the same programming language (or
-especially the same software framework) will be common, resulting in communities
-identified by a programming language.
+To what extent does the diversity of programming language fragment the software
+development community? We anticipate that collaborations between projects using
+the same programming language (or especially the same software framework) will
+be common, resulting in communities identified by a programming language.
 
+In this paper, we construct the one-mode network of repositories and examine its
+community structure, comparing communities defined by programming languages to
+those determined by common community-detection algorithms.
+
+\section{Related Work}
 Some recent analyses have examined the programming languages associated with
 each user via their repositories to determine conditional probabilities
 \cite{doll12} or correlations \cite{shah13} relating to use of language pairs. A
 visualization of the bipartite graph of organizations (groups of users) and
 languages \cite{rodrigues12} won third place in the 2012 GitHub Data Challenge,
 and \cite{weber12} performed preliminary analysis of user communities based on
-primary programming languages. We approach the problem somewhat differently by
-constructing the one-mode network of repositories and examining its community
-structure.
+primary programming languages.
 
 Methods for generating the the project-project and user-user networks are
 described in \cite{thung2013} and used to find nodes with high PageRank values.
