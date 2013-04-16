@@ -50,10 +50,10 @@ code, along with data files, are available in this project's repository at
 \url{https://github.com/coyotebush/github-network-analysis}.
 
 \section{Data Collection}
-We used Google BigQuery on the GitHub Archive dataset\cite{githubarchive} to
-obtain data on GitHub repositories that had received at least 1000 ``stars'' as
-of the end of 2012, including the URL, primary programming language, and number
-of stars for each repository.
+We queried the GitHub Archive dataset\cite{githubarchive} to obtain data on
+GitHub repositories that had received at least 1000 ``stars'' (a way for users
+to bookmark interesting repositories) as of the end of 2012, including the URL,
+primary programming language, and number of stars for each repository.
 
 Using a second query, we computed a set of weighted edges between these
 repositories. This weight is based on two types of events: \emph{pushes}, where
