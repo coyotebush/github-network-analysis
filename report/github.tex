@@ -16,10 +16,7 @@
 
 GitHub \cite{github} facilitates collaborative software development and hosts
 the source code repositories, as well as other development activities, of many
-open-source software projects small and large. Data on the repositories hosted
-at GitHub, the users of the service, and the changes (or \textit{commits}) users
-make to repositories is available through an HTTP API as well as through Google
-BigQuery.
+open-source software projects.
 
 We examine the relationship between the community structure of the GitHub
 collaboration network and the programming languages used for projects. The
@@ -45,6 +42,13 @@ A weighted community detection algorithm for use in evaluating the GitHub
 network is described in \cite{marrama}.
 
 \section{Methodology}
+Data was obtained using SQL queries against the Google BigQuery web interface.
+Further analysis was performed using Python 2.7 and version 0.6.5 of the igraph
+library, and visualizations were created using Gephi 0.8.2. All SQL and Python
+code, along with data files, are available in this project's repository at
+\url{https://github.com/coyotebush/github-network-analysis}.
+
+\section{Data Collection}
 We used Google BigQuery on the GitHub Archive dataset\cite{githubarchive} to
 obtain data on GitHub repositories that had received at least 1000 ``stars'' as
 of the end of 2012, including the URL, primary programming language, and number
@@ -83,10 +87,7 @@ similar to the approach of \cite{marrama}, and drawing insight from
 the contribution weight defined previously, and $u$ ranges over all GitHub users
 (who have contributed to both of these repositories).
 
-The remaining analysis was performed using Python 2.7 and version 0.6.5 of the
-igraph library, and visualizations were created using Gephi 0.8.2. All SQL and
-Python code, along with data files, are available in this project's repository
-at \url{https://github.com/coyotebush/github-network-analysis}.
+\section{Analysis}
 
 \begin{itemize}
     \item Visualize the network, with nodes colored by language
