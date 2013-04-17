@@ -14,9 +14,9 @@
 
 \section{Introduction}
 
-GitHub \cite{github} facilitates collaborative software development and hosts
-the source code repositories, as well as other development activities, of many
-open-source software projects.
+The website GitHub facilitates collaborative software development and hosts the
+source code repositories, as well as other development activities, of numerous
+open-source software projects, many of them widely-known.
 
 To what extent does the diversity of programming language fragment the software
 development community? We anticipate that the frequency of collaboration between
@@ -59,8 +59,7 @@ Using a second query, we computed a set of weighted edges between these
 repositories. This weight is based on two types of events: \emph{pushes}, where
 a user adds new changes to a repository, and \emph{pull-request merges}, where a
 user without push access proposes changes that are then reviewed and added to
-the repository by another user who does.\footnote{In preliminary analysis,
-accounting only for pushes resulted in a relatively disconnected graph,
+the repository by another user who does.\footnote{Accounting only for pushes gave a relatively disconnected graph,
 presumably because, as examined in \cite{khadke}, most users have push access to only a few related
 repositories.} We first computed contribution weights $C_{ui}$ for
 user-repository pairs as the number of times the user has either pushed to the
@@ -75,20 +74,16 @@ contributed to each of a pair of repositories, and defining the weight of the
 edge between repositories $i$ and $j$ as the sum over all users who have
 contributed to both of the geometric mean of the number of times they have
 contributed to each. The geometric mean was chosen because it is high when the
-counts of contributions to both repositories are high, but low when either is
-low, and the impact of increasing either is diminishing. That is, the the
-weights are defined by
+counts of a user's contributions to both repositories are high, but low when
+either is low (and conveniently zero when they have not contributed at all to
+either), and the impact of increasing either is diminishing. That is, the the
+weights are defined by $W_{ij} \equiv \sum_u \sqrt{C_{ui} \cdot C_{uj}}$ , where
+$W$ gives the edge weight, $C$ is the contribution weight defined previously,
+and $u$ ranges over all GitHub users \footnote{This is similar to the approach
+of \cite{marrama}, which effectively used $\sqrt{min(C_{ui}, C_uj)}$;
+\cite{opsahlproj,opsahl11} provide additional insight into projections of such
+two-mode networks.}
 
-\begin{equation}
-    W_{ij} \equiv \sum_u \sqrt{C_{ui} \cdot C_{uj}}
-\end{equation}
-
-similar to the approach of \cite{marrama}, and drawing insight from
-\cite{opsahlproj,opsahl11}, where $W$ gives the edge weight, $C$ is the
-contribution weight defined previously, and $u$ ranges over all GitHub users
-(who have contributed to both of these repositories).
-
-\section{Analysis}
 The resulting graph contains 825 nodes and 3661 edges. However, for the
 remainder of the analysis we consider only the giant component of this graph,
 which contains 632 nodes and 3644 edges. This is justified by the lack of
@@ -96,7 +91,7 @@ meaningful structure in the remainder of the graph---the remaining connected
 components comprise at most 3 nodes each---and reduces clutter both in the
 visualization (which would have many nodes floating at the edge) and the
 community detection (which would identify most of these nodes as their own
-community).
+communities).
 
 \begin{itemize}
     \item Visualize the network, with nodes colored by language
