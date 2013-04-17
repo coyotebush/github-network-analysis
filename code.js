@@ -1,5 +1,5 @@
 $(function () {
-  var graph = sigma.init(document.getElementById('graph')).drawingProperties({
+  graph = sigma.init(document.getElementById('graph')).drawingProperties({
     defaultLabelColor: '#fff',
       defaultLabelSize: 12,
       defaultLabelBGColor: '#fff',
@@ -8,18 +8,19 @@ $(function () {
       defaultEdgeType: 'curve'
   }).graphProperties({
     minNodeSize: 1,
-  maxNodeSize: 10,
-  minEdgeSize: 1,
-  maxEdgeSize: 30
+    maxNodeSize: 10,
+    minEdgeSize: 1,
+    maxEdgeSize: 30
   }).mouseProperties({
     maxRatio: 32
   });
-  graph.parseGexf('repositories.gexf');
-  graph.iterEdges(function(e){
-    e.size=e.weight;
+  graph.parseJson('repositories.json', function() {
+    graph.iterEdges(function(e){
+      e.size=e.weight;
+    });
+    graph.bind('upnodes', function(e) {
+      window.open(graph.getNodes(e.content[0]).attr.attributes.name);
+    });
+    graph.draw();
   });
-  graph.bind('downnodes', function(e) {
-    x = (graph.getNodes(e.content[0]));
-  });
-  graph.draw();
 });
