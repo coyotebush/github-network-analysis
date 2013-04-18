@@ -1,5 +1,8 @@
-*.aux
-*.log
-*.out
-*.bbl
-*.blg
+github.aux
+github.log
+github.out
+github.bbl
+github.blg
+github.pdf
+cache
+analysis.tex

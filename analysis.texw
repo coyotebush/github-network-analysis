@@ -1,0 +1,35 @@
+<<echo = False>>=
+import igraph
+import numpy
+import collections
+
+g = igraph.read('repositories.gml')
+@
+
+<<>>=
+g = g.components().giant()
+@
+
+\subsection{Communities Defined by Language}
+
+We group repositories by language and calculate the resulting modularity using
+both the weighted and unweighted algorithms implemented in igraph:
+
+<<>>=
+by_language = igraph.VertexClustering.FromAttribute(g, 'language')
+u_mod = g.modularity(by_language)
+w_mod = g.modularity(by_language, 'weight')
+@
+
+\begin{table}[h]
+\centering
+\begin{tabular}{l r}
+\hline
+Unweighted modularity & <%= "%0.4f" % u_mod %> \\
+Weighted modularity   & <%= "%0.4f" % w_mod %> \\
+\hline
+\end{tabular}
+\caption{Properties of clustering by language.}
+\end{table}
+
+\subsection{Languages in Detected Communities}

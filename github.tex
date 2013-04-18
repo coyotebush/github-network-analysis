@@ -2,7 +2,9 @@
 \usepackage{hyperref}
 \urlstyle{same}
 \usepackage{amsmath}
-\usepackage{courier}
+\usepackage{minted}
+\usemintedstyle{tango}
+\usepackage{inconsolata}
 %\usepackage[T1]{fontenc}
 \setcounter{secnumdepth}{-1}
 
@@ -117,11 +119,12 @@ available at \url{http://coyotebush.github.io/github-network-analysis/}.
 Some language-based communities are already visually evident, including Ruby
 (pink), JavaScript (pale blue), Python (yellow) and Objective-C (dark blue).
 
-\section{Analysis}
+\section[Analysis]{Analysis\footnote{This section was created using Pweave:
+\url{http://mpastell.com/pweave/}}}
 
-\subsection{Communities Defined by Language}
+\input{analysis.tex}
 
-\subsection{Languages in Detected Communities}
+\section{Discussion}
 
 \section{Conclusions}
 
