@@ -9,7 +9,8 @@ with open('repo-attributes.csv', 'rb') as repofile:
     for repo in reader:
         g.add_vertex(name=repo['repository_url'],
             label=repo['repository_url'][19:],
-            language=repo['repository_language'],
+            language='(unknown)' if repo['repository_language'] == 'null'
+                else repo['repository_language'],
             watchers=int(repo['repository_watchers']))
 
 with open('repo-weights.csv', 'rb') as edgefile:
