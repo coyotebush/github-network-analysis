@@ -77,14 +77,14 @@ edge between repositories $i$ and $j$ as the sum over all users who have
 contributed to both of the geometric mean of the number of times they have
 contributed to each. The geometric mean was chosen because it is high when the
 counts of a user's contributions to both repositories are high, but low when
-either is low (and conveniently zero when they have not contributed at all to
+either is low (and elegantly zero when they have not contributed at all to
 either), and the impact of increasing either is diminishing. That is, the the
 weights are defined by $W_{ij} \equiv \sum_u \sqrt{C_{ui} \cdot C_{uj}}$ , where
 $W$ gives the edge weight, $C$ is the contribution weight defined previously,
 and $u$ ranges over all GitHub users \footnote{This is similar to the approach
 of \cite{marrama}, which effectively used $\sqrt{min(C_{ui}, C_uj)}$;
-\cite{opsahlproj,opsahl11} provide additional insight into projections of such
-two-mode networks.}
+\cite{opsahlproj,opsahl11} provide additional insight into projections of
+such two-mode networks.}
 
 The resulting graph contains 825 nodes and 3661 edges. However, for the
 remainder of the analysis we consider only the giant component of this graph,
