@@ -10,10 +10,10 @@ all: github.pdf
 	$(LATEX) $<
 	while fgrep -is 'Rerun to get' $*.log; do $(LATEX) $<; done
 
-%.tex: %.texw
+analysis.tex: analysis.texw
 	Pweave -f texminted $^
 
-%.py: %.texw
+analysis.py: analysis.texw
 	Ptangle $^
 
 clean:
