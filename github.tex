@@ -2,6 +2,7 @@
 \usepackage{hyperref}
 \urlstyle{same}
 \usepackage{amsmath}
+\usepackage{booktabs}
 \usepackage{minted}
 \usemintedstyle{tango}
 \usepackage{inconsolata}
@@ -95,14 +96,6 @@ visualization (which would have many nodes floating at the edge) and the
 community detection (which would identify most of these nodes as their own
 communities).
 
-\begin{itemize}
-    \item Visualize the network, with nodes colored by language
-    \item Determine the modularity (and similar measures of community structure)
-        of each of the language subnetworks.
-    \item Apply common community-finding algorithms to the network and analyze
-        the programming language composition of the resulting structure.
-\end{itemize}
-
 \section{Visualization}
 A visualization of the network using the ForceAtlas 2 layout algorithm, with
 nodes colored according to programming language and sized according to number of
@@ -119,8 +112,9 @@ available at \url{http://coyotebush.github.io/github-network-analysis/}.
 Some language-based communities are already visually evident, including Ruby
 (pink), JavaScript (pale blue), Python (yellow) and Objective-C (dark blue).
 
-\section[Analysis]{Analysis\footnote{This section was created using Pweave:
-\url{http://mpastell.com/pweave/}}}
+\section[Analysis]{Analysis\footnote{This section was created using Pweave
+(\url{http://mpastell.com/pweave/}) and
+matrix2latex(\url{http://code.google.com/p/matrix2latex/})}}
 
 \input{analysis.tex}
 

@@ -1,8 +1,8 @@
 <<echo = False>>=
 import igraph
 import numpy as np
-import re
 import collections
+from matrix2latex import matrix2latex
 
 g = igraph.read('repositories.gml')
 @
@@ -25,63 +25,43 @@ mod_w = g.modularity(by_language, 'weight')
 
 \begin{table}[h]
 \centering
+\caption{Properties of clustering by language.}
 \begin{tabular}{l r}
 \hline
 Unweighted modularity & <%= "%0.3f" % mod_u %> \\
 Weighted modularity   & <%= "%0.3f" % mod_w %> \\
 \hline
 \end{tabular}
-\caption{Properties of clustering by language.}
 \label{tab:languageclustering}
 \end{table}
 
 We then examine the language-based clusters as independent subgraphs (presented
 in descending order of number of repositories). Several forms of the clustering
-coefficient are calculated and presented in
+coefficient are calculated below and presented in
 table~\ref{tab:clusteringcoefficient}.
 
-<<>>=
-languages = sorted(by_language.subgraphs(),
+<<results = 'tex'>>=
+langs = sorted(by_language.subgraphs(),
     key=lambda x: len(x.vs), reverse=True)
+langs.append(g) # Include statistics on entire graph
 
-language_info = [{'language': s.vs[0]['language'],
-  'count': len(s.vs),
-  'tr': s.transitivity_undirected(mode='zero'),
-  'tr_avg': s.transitivity_avglocal_undirected(mode='zero'),
-  'tr_avg_w': np.mean(s.transitivity_local_undirected(mode='zero',
-    weights='weight'))}
-  for s in languages]
-
-overall_info = {'count': len(g.vs),
-  'tr': g.transitivity_undirected(),
-  'tr_avg': g.transitivity_avglocal_undirected(mode='zero'),
-  'tr_avg_w': np.mean(g.transitivity_local_undirected(mode='zero',
-    weights='weight'))}
+names   = [s.vs[0]['language'].replace('#', '\#') for s in langs]
+names[-1] = 'OVERALL'
+counts  = [len(s.vs) for s in langs]
+tr      = [s.transitivity_undirected(mode='zero') for s in langs]
+tr_avg  = [s.transitivity_avglocal_undirected(mode='zero') for s in langs]
+tr_avgw = [np.mean(s.transitivity_local_undirected(mode='zero',
+    weights='weight')) for s in langs]
 @
 
-\begin{table}[htbp]
-\centering
-\begin{tabular}{l r r r r}
-Language & Repositories & Global & Avg. local  & Avg. weighted \\
-\hline
-<<echo = False, results = 'tex'>>=
-for l in language_info:
-    print re.sub(r'#', r'\#', l['language']) if l['language'] != 'null' else '(unknown)', '&', l['count'], '&',
-    print "%0.3f & %0.3f & %0.3f" % (l['tr'], l['tr_avg'], l['tr_avg_w']),
-    print '\\\\'
-@
-\hline
-Overall &
-<<echo = False, results = 'tex'>>=
-print overall_info['count'], '&',
-print "%0.3f & %0.3f & %0.3f" % (overall_info['tr'], overall_info['tr_avg'], overall_info['tr_avg_w']),
-print '\\\\'
-@
-\end{tabular}
-\caption{Languages in the dataset and clustering coefficients  associated with
-        each subgraph (in averages, nodes with degree $<$ 2 are treated as
-            having clustering coefficient 0).}
-\label{tab:clusteringcoefficient}
-\end{table}
+<%= matrix2latex([counts, tr, tr_avg, tr_avgw], transpose=True, alignment="r",
+    formatColumn=["$%d$", "$%.3f$", "$%.3f$", "$%.3f$", "$%.3f$"],
+    headerColumn=names, headerRow=["Language", "Repositories", "Global",
+      "Avg. local", "Avg. weighted"], caption="""Languages in the dataset and
+      subgraph clustering coefficients (in averages,
+      nodes with degree\\textless 2 treated as having clustering coefficient
+      0).""", label="clusteringcoefficient") %>
 
 \subsection{Languages in Detected Communities}
+Apply common community-finding algorithms to the network and analyze the
+programming language composition of the resulting structure.

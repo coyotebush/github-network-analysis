@@ -6,3 +6,4 @@ github.blg
 github.pdf
 cache
 analysis.tex
+*.pyc
