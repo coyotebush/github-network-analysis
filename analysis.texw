@@ -1,6 +1,7 @@
 <<echo = False>>=
 import igraph
-import numpy
+import numpy as np
+import re
 import collections
 
 g = igraph.read('repositories.gml')
@@ -12,24 +13,75 @@ g = g.components().giant()
 
 \subsection{Communities Defined by Language}
 
-We group repositories by language and calculate the resulting modularity using
-both the weighted and unweighted algorithms implemented in igraph:
+We group repositories by language and first calculate the resulting modularity
+using both the weighted and unweighted algorithms implemented in igraph; the
+results are presented in table~\ref{tab:languageclustering}.
 
 <<>>=
 by_language = igraph.VertexClustering.FromAttribute(g, 'language')
-u_mod = g.modularity(by_language)
-w_mod = g.modularity(by_language, 'weight')
+mod_u = g.modularity(by_language)
+mod_w = g.modularity(by_language, 'weight')
 @
 
 \begin{table}[h]
 \centering
 \begin{tabular}{l r}
 \hline
-Unweighted modularity & <%= "%0.4f" % u_mod %> \\
-Weighted modularity   & <%= "%0.4f" % w_mod %> \\
+Unweighted modularity & <%= "%0.3f" % mod_u %> \\
+Weighted modularity   & <%= "%0.3f" % mod_w %> \\
 \hline
 \end{tabular}
 \caption{Properties of clustering by language.}
+\label{tab:languageclustering}
+\end{table}
+
+We then examine the language-based clusters as independent subgraphs (presented
+in descending order of number of repositories). Several forms of the clustering
+coefficient are calculated and presented in
+table~\ref{tab:clusteringcoefficient}.
+
+<<>>=
+languages = sorted(by_language.subgraphs(),
+    key=lambda x: len(x.vs), reverse=True)
+
+language_info = [{'language': s.vs[0]['language'],
+  'count': len(s.vs),
+  'tr': s.transitivity_undirected(mode='zero'),
+  'tr_avg': s.transitivity_avglocal_undirected(mode='zero'),
+  'tr_avg_w': np.mean(s.transitivity_local_undirected(mode='zero',
+    weights='weight'))}
+  for s in languages]
+
+overall_info = {'count': len(g.vs),
+  'tr': g.transitivity_undirected(),
+  'tr_avg': g.transitivity_avglocal_undirected(mode='zero'),
+  'tr_avg_w': np.mean(g.transitivity_local_undirected(mode='zero',
+    weights='weight'))}
+@
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{l r r r r}
+Language & Repositories & Global & Avg. local  & Avg. weighted \\
+\hline
+<<echo = False, results = 'tex'>>=
+for l in language_info:
+    print re.sub(r'#', r'\#', l['language']) if l['language'] != 'null' else '(unknown)', '&', l['count'], '&',
+    print "%0.3f & %0.3f & %0.3f" % (l['tr'], l['tr_avg'], l['tr_avg_w']),
+    print '\\\\'
+@
+\hline
+Overall &
+<<echo = False, results = 'tex'>>=
+print overall_info['count'], '&',
+print "%0.3f & %0.3f & %0.3f" % (overall_info['tr'], overall_info['tr_avg'], overall_info['tr_avg_w']),
+print '\\\\'
+@
+\end{tabular}
+\caption{Languages in the dataset and clustering coefficients  associated with
+        each subgraph (in averages, nodes with degree $<$ 2 are treated as
+            having clustering coefficient 0).}
+\label{tab:clusteringcoefficient}
 \end{table}
 
 \subsection{Languages in Detected Communities}
