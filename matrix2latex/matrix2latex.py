@@ -303,7 +303,7 @@ of some advanced table techniques.
         f.write(r"\begin{%s}" % environments[ixEnv])
         # special environments:
         if environments[ixEnv] == "table":
-            f.write("[ht]")
+            f.write("[htbp]")
         elif environments[ixEnv] == "center":
             if caption != None:
                 f.write("\n"+"\t"*ixEnv)
