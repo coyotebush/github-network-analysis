@@ -1,6 +1,5 @@
 <<echo = False>>=
 import igraph
-import numpy as np
 import collections
 from matrix2latex import matrix2latex
 
@@ -50,8 +49,8 @@ names[-1] = 'OVERALL'
 counts  = [len(s.vs) for s in langs]
 tr      = [s.transitivity_undirected(mode='zero') for s in langs]
 tr_avg  = [s.transitivity_avglocal_undirected(mode='zero') for s in langs]
-tr_avgw = [np.mean(s.transitivity_local_undirected(mode='zero',
-    weights='weight')) for s in langs]
+tr_avgw = [s.transitivity_avglocal_undirected(mode='zero',
+    weights='weight') for s in langs]
 @
 
 <%= matrix2latex([counts, tr, tr_avg, tr_avgw], transpose=True, alignment="r",
