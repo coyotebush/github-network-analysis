@@ -12,7 +12,7 @@ g = g.components().giant()
 @
 
 Central repositories, defined by degree and betweenness, both weighted and
-unweighted, are presented in table~\ref{tab:degree}.
+unweighted, are presented in table~\ref{tab:topnodes}.
 
 <<>>=
 g.vs['degree']   = g.degree()
@@ -28,11 +28,12 @@ top_betweenw = g.vs[reversed(np.argsort(g.vs['betweenw'])[-5:].tolist())]
 
 \begin{table}[htbp]
 \caption{Top nodes (repositories) by various measures}
-\label{tab:degree}
+\label{tab:topnodes}
 \begin{subtable}{0.5\textwidth}
 <%= matrix2latex(top_degree['degree'], None, 'center', 'tabular',
     alignment='r',
     caption="Unweighted degree",
+    label="degree",
     headerColumn = top_degree['label']) %>
 \end{subtable}
 ~
@@ -41,6 +42,7 @@ top_betweenw = g.vs[reversed(np.argsort(g.vs['betweenw'])[-5:].tolist())]
     alignment='r',
     format='$%.1f$',
     caption="Weighted degree",
+    label="degreew",
     headerColumn = top_degreew['label']) %>
 \end{subtable}
 \\[1em]
@@ -49,6 +51,7 @@ top_betweenw = g.vs[reversed(np.argsort(g.vs['betweenw'])[-5:].tolist())]
     alignment='r',
     format='$%.1f$',
     caption="Unweighted betweenness",
+    label="between",
     headerColumn = top_between['label']) %>
 \end{subtable}
 ~
@@ -57,6 +60,7 @@ top_betweenw = g.vs[reversed(np.argsort(g.vs['betweenw'])[-5:].tolist())]
     alignment='r',
     format='$%.1f$',
     caption="Weighted betweenness",
+    label="betweenw",
     headerColumn = top_betweenw['label']) %>
 \end{subtable}
 \end{table}
@@ -97,12 +101,13 @@ weights.
 <<>>=
 langs = sorted(by_language.subgraphs(),
     key=lambda x: len(x.vs), reverse=True)
-langs.append(g) # Include statistics on entire graph
+names = [s.vs[0]['language'].replace('#', '\#') for s in langs]
 
-names   = [s.vs[0]['language'].replace('#', '\#') for s in langs]
-names[-1] = 'OVERALL'
-countn  = [len(s.vs) for s in langs]
-counte  = [len(s.es) for s in langs]
+langs.append(g) # Include statistics on entire graph
+names.append('OVERALL')
+
+count_n = [len(s.vs) for s in langs]
+count_e = [len(s.es) for s in langs]
 density = [s.density() for s in langs]
 tr      = [s.transitivity_undirected() for s in langs]
 tr_avg  = [s.transitivity_avglocal_undirected(mode='zero') for s in langs]
@@ -110,7 +115,7 @@ tr_avgw = [s.transitivity_avglocal_undirected(mode='zero',
     weights='weight') for s in langs]
 @
 
-<%= matrix2latex([countn, counte, density, tr, tr_avg, tr_avgw],
+<%= matrix2latex([count_n, count_e, density, tr, tr_avg, tr_avgw],
     transpose=True,
     alignment="r",
     formatColumn=["$%d$", "$%d$", "$%.3f$", "$%.3f$", "$%.3f$", "$%.3f$"],
