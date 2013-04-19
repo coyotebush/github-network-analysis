@@ -27,9 +27,10 @@ development community? We anticipate that the frequency of collaboration between
 projects using the same programming language (or software framework, especially)
 will result in communities identified by a programming language.
 
-In this paper, we construct the one-mode network of repositories and examine its
-community structure, comparing communities defined by programming languages to
-those determined by common community-detection algorithms.
+In this paper, we construct the one-mode network of repositories, identify
+important repositories in this network, and examine its community structure,
+comparing communities defined by programming languages to those determined by
+common community-detection algorithms.
 
 \section{Related Work}
 Some recent analyses have examined the programming languages associated with
@@ -123,9 +124,11 @@ Some language-based communities are already visually evident, including
 (\url{http://mpastell.com/pweave/}) and
 matrix2latex (\url{http://code.google.com/p/matrix2latex/})}}
 
-\input{analysis.tex}
+\subsection{Notable repositories}
 
-\section{Discussion}
+\input{analysis-repos.tex}
+
+\subsubsection{Discussion}
 First, it is clear that `rails/rails', the Ruby on Rails web application
 framework, is a very important project on GitHub. This makes sense considering
 that many websites, including GitHub itself, use Rails, and that there is a
@@ -142,6 +145,10 @@ most of the collaboration surrounding the two `ajaxorg' projects appears to be
 between the two.
 
 \subsection{Communities Defined by Language}
+
+\input{analysis-languages.tex}
+
+\subsubsection{Discussion}
 The modularity resulting from clustering by language indicates significant
 community structure, especially in the weighted version, which considers amount
 of collaboration rather than merely its existence.
@@ -154,6 +161,10 @@ languages. JavaScript projects are abundant but loosely connected. The Shell
 network is quite sparse; again, most of these are probably development tools. 
 
 \subsection{Languages in Detected Communities}
+
+\input{analysis-communities.tex}
+
+\subsubsection{Discussion}
 
 \section{Conclusions}
 

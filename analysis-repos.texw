@@ -1,0 +1,62 @@
+<<echo = False>>=
+import igraph
+import numpy as np
+import collections
+from matrix2latex import matrix2latex
+
+g = igraph.read('repositories.gml').components().giant()
+@
+
+Central repositories, defined by degree and betweenness, both weighted and
+unweighted, are presented in table~\ref{tab:topnodes}.
+
+<<>>=
+g.vs['degree']   = g.degree()
+g.vs['degreew']  = g.strength(weights='weight')
+g.vs['between']  = g.betweenness()
+g.vs['betweenw'] = g.betweenness(weights='weight')
+
+top_degree   = g.vs[reversed(np.argsort(g.vs['degree'])[-5:].tolist())]
+top_degreew  = g.vs[reversed(np.argsort(g.vs['degreew'])[-5:].tolist())]
+top_between  = g.vs[reversed(np.argsort(g.vs['between'])[-5:].tolist())]
+top_betweenw = g.vs[reversed(np.argsort(g.vs['betweenw'])[-5:].tolist())]
+@
+
+\begin{table}[htbp]
+\caption{Top nodes (repositories) by various measures}
+\label{tab:topnodes}
+\begin{subtable}{0.5\textwidth}
+<%= matrix2latex(top_degree['degree'], None, 'center', 'tabular',
+    alignment='r',
+    caption="Unweighted degree",
+    label="degree",
+    headerColumn = top_degree['label']) %>
+\end{subtable}
+~
+\begin{subtable}{0.5\textwidth}
+<%= matrix2latex(top_degreew['degreew'], None, 'center', 'tabular',
+    alignment='r',
+    format='$%.1f$',
+    caption="Weighted degree",
+    label="degreew",
+    headerColumn = top_degreew['label']) %>
+\end{subtable}
+\\[1em]
+\begin{subtable}{0.5\textwidth}
+<%= matrix2latex(top_between['between'], None, 'center', 'tabular',
+    alignment='r',
+    format='$%.1f$',
+    caption="Unweighted betweenness",
+    label="between",
+    headerColumn = top_between['label']) %>
+\end{subtable}
+~
+\begin{subtable}{0.5\textwidth}
+<%= matrix2latex(top_betweenw['betweenw'], None, 'center', 'tabular',
+    alignment='r',
+    format='$%.1f$',
+    caption="Weighted betweenness",
+    label="betweenw",
+    headerColumn = top_betweenw['label']) %>
+\end{subtable}
+\end{table}

@@ -1,6 +1,6 @@
 LATEX = pdflatex -shell-escape
 
-TEXDEPS = analysis.tex github.bib
+TEXDEPS = analysis-repos.tex analysis-languages.tex analysis-communities.tex github.bib
 
 all: github.pdf
 
@@ -10,10 +10,10 @@ all: github.pdf
 	$(LATEX) $<
 	while fgrep -is 'Rerun to get' $*.log; do $(LATEX) $<; done
 
-analysis.tex: analysis.texw
+%.tex: %.texw
 	Pweave -f texminted $^
 
-analysis.py: analysis.texw
+%.py: %.texw
 	Ptangle $^
 
 clean:
@@ -21,3 +21,4 @@ clean:
 
 .PHONY: all clean
 .DELETE_ON_ERROR:
+.PRECIOUS: %.tex %.py

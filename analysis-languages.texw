@@ -1,0 +1,70 @@
+<<echo = False>>=
+import igraph
+import numpy as np
+import collections
+from matrix2latex import matrix2latex
+
+g = igraph.read('repositories.gml').components().giant()
+@
+
+We group repositories by language and first calculate the resulting modularity
+using both the weighted and unweighted algorithms implemented in igraph; the
+results are presented in table~\ref{tab:languageclustering}.
+
+<<>>=
+by_language = igraph.VertexClustering.FromAttribute(g, 'language')
+mod_u = g.modularity(by_language)
+mod_w = g.modularity(by_language, 'weight')
+@
+
+\begin{table}[h]
+\centering
+\caption{Properties of clustering by language.}
+\begin{tabular}{l r}
+\toprule
+Unweighted modularity & <%= "%0.3f" % mod_u %> \\
+Weighted modularity   & <%= "%0.3f" % mod_w %> \\
+\bottomrule
+\end{tabular}
+\label{tab:languageclustering}
+\end{table}
+
+We then examine the language-based clusters as independent subgraphs, presented
+in descending order of number of repositories. Measures of community
+strength are calculated below and presented in
+table~\ref{tab:clusteringcoefficient}: the density (fraction of possible edges
+that exist) and forms of the clustering coefficient (probability that any two
+neighbors of a node are themselves connected) for the entire subgraph, the
+average for each node, and a variant of the latter that accounts for edge
+weights.
+
+<<>>=
+langs = sorted(by_language.subgraphs(),
+    key=lambda x: len(x.vs), reverse=True)
+names = [s.vs[0]['language'].replace('#', '\#') for s in langs]
+
+langs.append(g) # Include statistics on entire graph
+names.append('OVERALL')
+
+count_n = [len(s.vs)                   for s in langs]
+count_e = [len(s.es)                   for s in langs]
+density = [s.density()                 for s in langs]
+tr      = [s.transitivity_undirected() for s in langs]
+tr_avg  = [s.transitivity_avglocal_undirected(mode='zero')
+    for s in langs]
+tr_avgw = [s.transitivity_avglocal_undirected(mode='zero',
+    weights='weight') for s in langs]
+@
+
+<%= matrix2latex([count_n, count_e, density, tr, tr_avg, tr_avgw],
+    transpose=True,
+    alignment="r",
+    formatColumn=["$%d$", "$%d$", "$%.3f$", "$%.3f$", "$%.3f$", "$%.3f$"],
+    headerColumn=names,
+    headerRow=["Language", "Nodes", "Edges", "Density",
+        "Global", "Local", "Weighted"],
+    label="clusteringcoefficient", 
+    caption="""Languages in the dataset, subgraph density and clustering
+    coefficients (in averages, nodes with degree\\textless 2 treated as having
+    clustering coefficient 0).""")%>
+
