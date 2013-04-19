@@ -36,8 +36,10 @@ Weighted modularity   & <%= "%0.3f" % mod_w %> \\
 
 We then examine the language-based clusters as independent subgraphs (presented
 in descending order of number of repositories). Several forms of the clustering
-coefficient are calculated below and presented in
-table~\ref{tab:clusteringcoefficient}.
+coefficient (the probability that any two neighbors of a node are themselves
+connected, a measure of community strength) are calculated below and presented
+in table~\ref{tab:clusteringcoefficient}: for the entire subgraph, the average
+for each node, and a variant of the latter that accounts for edge weights.
 
 <<results = 'tex'>>=
 langs = sorted(by_language.subgraphs(),
