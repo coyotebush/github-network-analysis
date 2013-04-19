@@ -15,6 +15,7 @@ along with matrix2latex. If not, see <http://www.gnu.org/licenses/>.
 """
 import sys
 import os.path
+import math
 
 # my stuff:
 import fixEngineeringNotation
@@ -355,7 +356,7 @@ of some advanced table techniques.
             else:
                 e = matr[i][j]
 
-            if e == None or e == float('NaN'):
+            if e == None or math.isnan(e):
                 f.write("-")
             elif e == float('inf'):
                 f.write(r"$\infty$")
