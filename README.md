@@ -8,24 +8,12 @@ Interactive visualization: <http://coyotebush.github.io/github-network-analysis/
 
 General workflow:
 
-                   BigQuery
-                      |
-              -----------------
-             /                 \
-    repo-attributes.sql  repo-weights.sql
-            |                   |
-    repo-attributes.csv  repo-weights.csv
-             \                  /
-              ------------------
-                      |
-                  process.py
-                      |
-                repositories.gml
-                      |
-              ------------------
-             /                  \
-        analyze.py             Gephi
+ * From Google BigQuery:
+    * repo-attributes.sql creates repo-attributes.csv
+    * repo-weights.sql creates repo-weights.csv
+ * The process.py script reads both .csv files and creates repositories.gml
+ * Gephi loads repositories.gml
+ * Python code within analysis-\*.texw reads repositories.gml and produces output for the report
 
-
-For more information and the full analysis, see the [report](report/).
+For more information and the full analysis, see the [report](github.pdf).
 
