@@ -19,3 +19,4 @@ General workflow:
 
 For more information and the full analysis, see the [report](github.pdf).
 
+Credit to @frewscxv and @ThePicard for their help.
