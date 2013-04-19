@@ -34,8 +34,8 @@ Weighted modularity   & <%= "%0.3f" % mod_w %> \\
 \label{tab:languageclustering}
 \end{table}
 
-We then examine the language-based clusters as independent subgraphs (presented
-in descending order of number of repositories). Measures of community
+We then examine the language-based clusters as independent subgraphs, presented
+in descending order of number of repositories. Measures of community
 strength are calculated below and presented in
 table~\ref{tab:clusteringcoefficient}: the density (fraction of possible edges
 that exist) and forms of the clustering coefficient (probability that any two
@@ -43,14 +43,15 @@ neighbors of a node are themselves connected) for the entire subgraph, the
 average for each node, and a variant of the latter that accounts for edge
 weights.
 
-<<results = 'tex'>>=
+<<>>=
 langs = sorted(by_language.subgraphs(),
     key=lambda x: len(x.vs), reverse=True)
 langs.append(g) # Include statistics on entire graph
 
 names   = [s.vs[0]['language'].replace('#', '\#') for s in langs]
 names[-1] = 'OVERALL'
-counts  = [len(s.vs) for s in langs]
+countn  = [len(s.vs) for s in langs]
+counte  = [len(s.es) for s in langs]
 density = [s.density() for s in langs]
 tr      = [s.transitivity_undirected() for s in langs]
 tr_avg  = [s.transitivity_avglocal_undirected(mode='zero') for s in langs]
@@ -58,13 +59,17 @@ tr_avgw = [s.transitivity_avglocal_undirected(mode='zero',
     weights='weight') for s in langs]
 @
 
-<%= matrix2latex([counts, density, tr, tr_avg, tr_avgw], transpose=True,
-    alignment="r", formatColumn=["$%d$", "$%.3f$", "$%.3f$", "$%.3f$",
-    "$%.3f$"], headerColumn=names, headerRow=["Language", "Size",
-    "Density", "Global", "Avg. local", "Avg. weighted"], caption="""Languages in
-    the dataset, subgraph density and clustering coefficients (in averages,
-    nodes with degree\\textless 2 treated as having clustering coefficient
-    0).""", label="clusteringcoefficient") %>
+<%= matrix2latex([countn, counte, density, tr, tr_avg, tr_avgw],
+    transpose=True,
+    alignment="r",
+    formatColumn=["$%d$", "$%d$", "$%.3f$", "$%.3f$", "$%.3f$", "$%.3f$"],
+    headerColumn=names,
+    headerRow=["Language", "Nodes", "Edges", "Density",
+        "Global", "Local", "Weighted"],
+    label="clusteringcoefficient", 
+    caption="""Languages in the dataset, subgraph density and clustering
+    coefficients (in averages, nodes with degree\\textless 2 treated as having
+    clustering coefficient 0).""")%>
 
 \subsection{Languages in Detected Communities}
 Apply common community-finding algorithms to the network and analyze the
