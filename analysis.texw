@@ -26,10 +26,10 @@ mod_w = g.modularity(by_language, 'weight')
 \centering
 \caption{Properties of clustering by language.}
 \begin{tabular}{l r}
-\hline
+\toprule
 Unweighted modularity & <%= "%0.3f" % mod_u %> \\
 Weighted modularity   & <%= "%0.3f" % mod_w %> \\
-\hline
+\bottomrule
 \end{tabular}
 \label{tab:languageclustering}
 \end{table}
