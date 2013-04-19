@@ -106,11 +106,12 @@ names = [s.vs[0]['language'].replace('#', '\#') for s in langs]
 langs.append(g) # Include statistics on entire graph
 names.append('OVERALL')
 
-count_n = [len(s.vs) for s in langs]
-count_e = [len(s.es) for s in langs]
-density = [s.density() for s in langs]
+count_n = [len(s.vs)                   for s in langs]
+count_e = [len(s.es)                   for s in langs]
+density = [s.density()                 for s in langs]
 tr      = [s.transitivity_undirected() for s in langs]
-tr_avg  = [s.transitivity_avglocal_undirected(mode='zero') for s in langs]
+tr_avg  = [s.transitivity_avglocal_undirected(mode='zero')
+    for s in langs]
 tr_avgw = [s.transitivity_avglocal_undirected(mode='zero',
     weights='weight') for s in langs]
 @
