@@ -60,15 +60,15 @@ Using a second query, we computed a set of weighted edges between these
 repositories. This weight is based on two types of events: \emph{pushes}, where
 a user adds new changes to a repository, and \emph{pull-request merges}, where a
 user without push access proposes changes that are then reviewed and added to
-the repository by another user who does.\footnote{Accounting only for pushes gave a relatively disconnected graph,
-presumably because, as examined in \cite{khadke}, most users have push access to only a few related
-repositories.} We first computed contribution weights $C_{ui}$ for
-user-repository pairs as the number of times the user has either pushed to the
-repository or had a pull-request accepted to the repository during
-2012.\footnote{This counts pull-request merges for both the user who submitted
-the request and the user who pushed the merge; this seems acceptable, since it
-accounts for the work of reviewing a pull-request and better identifies
-repository maintainers.}
+the repository by another user who does.\footnote{Accounting only for pushes
+gave a relatively disconnected graph, presumably because, as examined in
+\cite{khadke}, most users have push access to only a few related repositories.}
+We first computed contribution weights $C_{ui}$ for user-repository pairs as the
+number of times the user has either pushed to the repository or had a
+pull-request accepted to the repository during 2012.\footnote{This counts
+pull-request merges for both the user who submitted the request and the user who
+pushed the merge; this seems acceptable, since it accounts for the work of
+reviewing a pull-request and better identifies repository maintainers.}
 
 Weights between repositories were then computed by examining users who have
 contributed to each of a pair of repositories, and defining the weight of the
@@ -110,11 +110,12 @@ available at \url{http://coyotebush.github.io/github-network-analysis/}.
 Some language-based communities are already visually evident, including
 \begin{itemize}
     \item Ruby (pink), which is noticeably centered around the prominent Ruby on
-        Rails project; see figure~\ref{fig:ruby}.
+        Rails project (figure~\ref{fig:ruby}).
     \item JavaScript (pale blue), the most popular language on GitHub and very
         central to this network.
     \item Python (yellow).
-    \item Objective-C (dark blue), which is relatively sparse.
+    \item Objective-C (dark blue), which is relatively sparse
+        (figure~\ref{fig:objc}).
 \end{itemize}
 
 \section[Analysis]{Analysis\footnote{This section was created using Pweave
