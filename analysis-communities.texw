@@ -1,2 +1,18 @@
+<<echo = False>>=
+import igraph
+import numpy as np
+import collections
+from matrix2latex import matrix2latex
+
+g = igraph.read('repositories.gml').components().giant()
+@
+
 Apply common community-finding algorithms to the network and analyze the
 programming language composition of the resulting structure.
+
+<<>>=
+infomap = g.community_infomap(edge_weights='weight')
+for l, n in collections.Counter(infomap.subgraph(0).vs['language']).most_common(3):
+    print "%s (%d)" % (l, n)
+@
+
