@@ -27,10 +27,10 @@ development community? We anticipate that the frequency of collaboration between
 projects using the same programming language (or software framework, especially)
 will result in communities identified by a programming language.
 
-In this paper, we construct the one-mode network of repositories, identify
-important repositories in this network, and examine its community structure,
-comparing communities defined by programming languages to those determined by
-common community-detection algorithms.
+We construct the one-mode network of repositories, identify important
+repositories in this network, and examine its community structure, comparing
+communities defined by programming languages to those determined by common
+community-detection algorithms.
 
 \section{Related Work}
 Some recent analyses have examined the programming languages associated with
@@ -82,8 +82,8 @@ either is low (and elegantly zero when they have not contributed at all to
 either), and the impact of increasing either is diminishing. That is, the the
 weights are defined by $W_{ij} \equiv \sum_u \sqrt{C_{ui} \cdot C_{uj}}$ , where
 $W$ gives the edge weight, $C$ is the contribution weight defined previously,
-and $u$ ranges over all GitHub users \footnote{This is similar to the approach
-of \cite{marrama}, which effectively used $\sqrt{min(C_{ui}, C_uj)}$;
+and $u$ ranges over all GitHub users.\footnote{This is similar to the approach
+of \cite{marrama}, which effectively used $\sqrt{min(C_{ui}, C_{uj})}$;
 \cite{opsahlproj,opsahl11} provide additional insight into projections of
 such two-mode networks.}
 
