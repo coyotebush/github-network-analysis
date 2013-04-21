@@ -4,7 +4,7 @@ $(function () {
     defaultLabelSize: 12,
     defaultLabelBGColor: '#fff',
     defaultLabelHoverColor: '#000',
-    labelThreshold: 6,
+    labelThreshold: 4,
     defaultEdgeType: 'curve'
   }).graphProperties({
     minNodeSize: 1,
