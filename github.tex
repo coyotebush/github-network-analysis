@@ -10,6 +10,8 @@
 \usepackage{inconsolata}
 %\usepackage[T1]{fontenc}
 \setcounter{secnumdepth}{-1}
+\widowpenalty=100
+\clubpenalty=100
 
 \title{Programming languages and\\collaboration communities on GitHub}
 \author{Corey Ford}
@@ -147,10 +149,10 @@ so their importance is likely due to their use by developers who primarily code
 in other languages.
 
 Weighted degree (table \ref{tab:degreew}), which best represents the amount of
-collaboration surrounding a project, includes none of these---Rails, Symfony,
-and Silex are all web application frameworks, and examining the visualization,
-most of the collaboration surrounding the two `ajaxorg' projects appears to be
-between the two.
+collaboration surrounding a project, includes none of these. From the
+visualization, collaboration surrounding the two `ajaxorg' projects appears to
+be primarily between the two, and the other three are web application
+frameworks.
 
 \subsection{Communities Defined by Language}
 
@@ -161,12 +163,12 @@ The modularity resulting from clustering by language indicates significant
 community structure, especially in the weighted version, which considers amount
 of collaboration rather than merely its existence.
 
-Among the top languages, the subgraph density and clustering coefficients for
-competing languages Ruby, Python and PHP are notable. Although there are also
-many popular projects using Objective-C and Java, their lower clustering
-coefficients reflect the perhaps less open culture associated with these
-languages. JavaScript projects are abundant but loosely connected. The Shell
-network is quite sparse; again, most of these are probably development tools. 
+Among the top languages, the subgraph statistics for competing languages Ruby,
+Python and PHP are notable. Although there are also many popular projects using
+Objective-C and Java, their lower clustering coefficients reflect the perhaps
+less open culture associated with these languages. JavaScript projects are
+abundant but loosely connected. The Shell network is quite sparse; again, most
+of these are probably development tools.
 
 \subsection{Languages in Detected Communities}
 

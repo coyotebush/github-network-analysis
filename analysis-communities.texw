@@ -33,7 +33,7 @@ greedy_langs = [collections.Counter(s.vs['language']).most_common(5)
 
 \begin{table}[htbp]
 \begin{center}
-\caption{Largest communities found by Infomap (weighted modularity:~<%= '%.3f' % info_mod %>)}
+\caption{Largest communities, Infomap (weighted modularity:~<%= '%.3f' % info_mod %>)}
 \label{tab:infomap}
 \begin{tabular}{rl}
 \toprule
@@ -52,7 +52,7 @@ for size, langs in zip(info_sizes, info_langs):
 
 \begin{table}[htbp]
 \begin{center}
-\caption{Largest communities found by greedy optimization (weighted modularity:~<%= '%.3f' % greedy_mod %>)}
+\caption{Largest communities, greedy (weighted modularity:~<%= '%.3f' % greedy_mod %>)}
 \label{tab:greedy}
 \begin{tabular}{rl}
 \toprule
