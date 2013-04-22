@@ -4,6 +4,7 @@
 \usepackage{amsmath}
 \usepackage{booktabs}
 \usepackage{subcaption}
+\usepackage{graphicx}
 \usepackage{minted}
 \usemintedstyle{tango}
 \usepackage{inconsolata}
@@ -104,21 +105,27 @@ available at \url{http://coyotebush.github.io/github-network-analysis/}.
 
 \begin{figure}[htbp]
     \centering
-    (Visualization goes here)
     \caption{GitHub repository network.}
     \label{fig:fullnetwork}
+    \includegraphics{repositories.pdf}
 \end{figure}
 
 Some language-based communities are already visually evident, including
 \begin{itemize}
     \item Ruby (pink), which is noticeably centered around the prominent Ruby on
         Rails project (figure~\ref{fig:ruby}).
-    \item JavaScript (pale blue), the most popular language on GitHub and very
+    \item JavaScript (yellow), the most popular language on GitHub and fairly
         central to this network.
-    \item Python (yellow).
-    \item Objective-C (dark blue), which is relatively sparse
-        (figure~\ref{fig:objc}).
+    \item Python (blue).
+    \item Objective-C (teal), which is relatively sparse.
 \end{itemize}
+
+\begin{figure}[htbp]
+    \centering
+    \caption{Ruby network.}
+    \label{fig:ruby}
+\includegraphics[clip=true,trim=1in 2.25in 2.5in 0.5in,scale=2]{repositories-labeled.pdf}
+\end{figure}
 
 \section[Analysis]{Analysis\footnote{This section was created using Pweave
 (\url{http://mpastell.com/pweave/}) and
