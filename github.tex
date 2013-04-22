@@ -11,7 +11,7 @@
 %\usepackage[T1]{fontenc}
 \setcounter{secnumdepth}{-1}
 
-\title{Programming language communities on GitHub}
+\title{Programming languages and\\collaboration communities on GitHub}
 \author{Corey Ford}
 
 \begin{document}
@@ -144,7 +144,7 @@ Many of the other repositories in tables~\ref{tab:degree}, \ref{tab:between},
 and \ref{tab:betweenw} (excluding `mperham/sidekiq' and `visionmedia/mocha')
 serve as development tools moreso than as independent frameworks/applications,
 so their importance is likely due to their use by developers who primarily code
-in any of a wide variety of other languages.
+in other languages.
 
 Weighted degree (table \ref{tab:degreew}), which best represents the amount of
 collaboration surrounding a project, includes none of these---Rails, Symfony,
@@ -179,7 +179,7 @@ Both of these algorithms find a clustering with very high modularity.
 computationally expensive, at best found a modularity of $0.290$, or $0.347$ for
 the weighted version.} While Infomap more cautiously finds smaller communities,
 in both cases most of the largest communities contain a majority of one of the
-top programming languages in the dataset. This suggests that collaborative
+top programming languages in the dataset. This suggests that collaboration
 communities do, in large part, form around languages.
 
 \section{Conclusions}
@@ -192,8 +192,10 @@ network analysis \cite{snacourse}, and as an entry in the GitHub Data Challenge
 Thanks to Peter Faiman and Corey Farwell for help regarding SQL and
 visualization, respectively.
 
+{\small
 \bibliographystyle{plain}
 \bibliography{github}
+}
 
 \end{document}
 % vim: ts=4 sts=4 sw=4 et tw=80
