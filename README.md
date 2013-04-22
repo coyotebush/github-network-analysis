@@ -13,7 +13,9 @@ General workflow:
     * repo-attributes.sql creates repo-attributes.csv
     * repo-weights.sql creates repo-weights.csv
  * The process.py script reads both .csv files and creates repositories.gml
- * Gephi loads repositories.gml
+ * Gephi loads repositories.gml and creates:
+    * repositories*.pdf to be included in the report
+    * [repositories.json](../gh-pages/repositories.json) for sigma.js
  * Python code within analysis-\*.texw reads repositories.gml and produces
    output for the report
 
