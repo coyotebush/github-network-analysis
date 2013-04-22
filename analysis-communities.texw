@@ -7,12 +7,64 @@ from matrix2latex import matrix2latex
 g = igraph.read('repositories.gml').components().giant()
 @
 
-Apply common community-finding algorithms to the network and analyze the
-programming language composition of the resulting structure.
+We apply two community-finding algorithms implemented in igraph, the Infomap
+method and the greedy optimization of modularity, to the graph. Tables
+\ref{tab:infomap} and \ref{tab:greedy} present the largest communities found
+by each of these algorithms, and the most common programming languages in each
+community.
 
 <<>>=
-infomap = g.community_infomap(edge_weights='weight')
-for l, n in collections.Counter(infomap.subgraph(0).vs['language']).most_common(3):
-    print "%s (%d)" % (l, n)
+info = g.community_infomap(edge_weights='weight')
+info_mod = info.modularity
+info_largest = sorted(info.subgraphs(), key=lambda x: len(x.vs),
+        reverse=True)[0:5]
+info_sizes = [len(s.vs) for s in info_largest]
+info_langs = [collections.Counter(s.vs['language']).most_common(5)
+        for s in info_largest]
+
+greedy = g.community_fastgreedy(weights='weight').as_clustering()
+greedy_mod = greedy.modularity
+greedy_largest = sorted(greedy.subgraphs(), key=lambda x: len(x.vs),
+        reverse=True)[0:5]
+greedy_sizes = [len(s.vs) for s in greedy_largest]
+greedy_langs = [collections.Counter(s.vs['language']).most_common(5)
+        for s in greedy_largest]
 @
 
+\begin{table}[htbp]
+\begin{center}
+\caption{Largest communities found by Infomap (weighted modularity:~<%= '%.3f' % info_mod %>)}
+\label{tab:infomap}
+\begin{tabular}{rl}
+\toprule
+Size & Top languages \\
+\midrule
+<%
+for size, langs in zip(info_sizes, info_langs):
+    print size, '&',
+    print ', '.join("%s (%d)" % (l.replace('#', r'\#'), n) for l, n in langs)
+    print r'\\'
+%>
+\bottomrule
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{table}[htbp]
+\begin{center}
+\caption{Largest communities found by greedy optimization (weighted modularity:~<%= '%.3f' % greedy_mod %>)}
+\label{tab:greedy}
+\begin{tabular}{rl}
+\toprule
+Size & Top languages \\
+\midrule
+<%
+for size, langs in zip(greedy_sizes, greedy_langs):
+    print size, '&',
+    print ', '.join("%s (%d)" % (l.replace('#', r'\#'), n) for l, n in langs)
+    print r'\\'
+%>
+\bottomrule
+\end{tabular}
+\end{center}
+\end{table}

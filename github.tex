@@ -166,6 +166,14 @@ network is quite sparse; again, most of these are probably development tools.
 \input{analysis-communities.tex}
 
 \subsubsection{Discussion}
+Both of these algorithms find a clustering with very high modularity.
+\footnote{The Girvan-Newman edge-betweenness algorithm
+(\texttt{community\_edge\_betweenness}), in addition to being very
+computationally expensive, at best found a modularity of $0.290$, or $0.347$ for
+the weighted version.} While Infomap more cautiously finds smaller communities,
+in both cases most of the largest communities contain a majority of one of the
+top programming languages in the dataset. This suggests that collaborative
+communities do, in large part, form around languages.
 
 \section{Conclusions}
 
