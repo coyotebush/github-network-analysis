@@ -3,7 +3,6 @@ github.log
 github.out
 github.bbl
 github.blg
-github.pdf
 cache
 *.tex
 !github.tex
