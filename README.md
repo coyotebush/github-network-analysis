@@ -19,3 +19,4 @@ General workflow:
 
 For more information and the full analysis, see the [report](github.pdf).
 
+Credit to [@frewsxcv](https://github.com/frewsxcv) and [@ThePicard](https://github.com/ThePicard) for their help.
