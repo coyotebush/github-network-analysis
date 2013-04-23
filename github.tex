@@ -62,18 +62,20 @@ to bookmark interesting repositories) as of the end of 2012, including the URL,
 primary programming language, and number of stars for each repository.
 
 Using a second query, we computed a set of weighted edges between these
-repositories. This weight is based on two types of events: \emph{pushes}, where
-a user adds new changes to a repository, and \emph{pull-request merges}, where a
-user without push access proposes changes that are then reviewed and added to
-the repository by another user who does.\footnote{Accounting only for pushes
-gave a relatively disconnected graph, presumably because, as examined in
-\cite{khadke}, most users have push access to only a few related repositories.}
-We first computed contribution weights $C_{ui}$ for user-repository pairs as the
-number of times the user has either pushed to the repository or had a
-pull-request accepted to the repository during 2012.\footnote{This counts
-pull-request merges for both the user who submitted the request and the user who
-pushed the merge; this seems acceptable, since it accounts for the work of
-reviewing a pull-request and better identifies repository maintainers.}
+repositories based on two types of events: \emph{pushes}, where a user adds new
+changes to a repository, and \emph{pull-request merges}, where a user without
+push access proposes changes that are then reviewed and added to the repository
+by another user who does.\footnote{Accounting only for pushes gave a relatively
+disconnected graph, presumably because, as examined in \cite{khadke}, most users
+have push access to only a few related repositories.  Including other types of
+events, or measures such as lines of code, might produce different results, but
+there is no definitive measure of developer productivity.} We first computed
+contribution weights $C_{ui}$ for user-repository pairs as the number of times
+the user has either pushed to or had a pull-request accepted to the repository
+during 2012.\footnote{This counts pull-request merges for both the user who
+submitted the request and the user who pushed the merge; this seems acceptable,
+since it accounts for the work of reviewing a pull-request and better identifies
+repository maintainers.}
 
 Weights between repositories were then computed by examining users who have
 contributed to each of a pair of repositories, and defining the weight of the
@@ -83,12 +85,11 @@ contributed to each. The geometric mean was chosen because it is high when the
 counts of a user's contributions to both repositories are high, but low when
 either is low (and elegantly zero when they have not contributed at all to
 either), and the impact of increasing either is diminishing. That is, the the
-weights are defined by $W_{ij} \equiv \sum_u \sqrt{C_{ui} \cdot C_{uj}}$ , where
-$W$ gives the edge weight, $C$ is the contribution weight defined previously,
-and $u$ ranges over all GitHub users.\footnote{This is similar to the approach
-of \cite{marrama}, which effectively used $\sqrt{min(C_{ui}, C_{uj})}$;
-\cite{opsahlproj,opsahl11} provide additional insight into projections of
-such two-mode networks.}
+weights are defined by $W_{ij} \equiv \sum_u \sqrt{C_{ui} \cdot C_{uj}}$,
+where $C$ is the contribution weight defined previously and $u$ ranges over all
+GitHub users.\footnote{This is similar to the approach of \cite{marrama}, which
+effectively used $\sqrt{min(C_{ui}, C_{uj})}$; \cite{opsahlproj,opsahl11}
+provide additional insight into projections of such two-mode networks.}
 
 The resulting graph contains 825 nodes and 3661 edges. However, for the
 remainder of the analysis we consider only the giant component of this graph,
@@ -182,12 +183,22 @@ computationally expensive, at best found a modularity of $0.290$, or $0.347$ for
 the weighted version.} While Infomap more cautiously finds smaller communities,
 in both cases most of the largest communities contain a majority of one of the
 top programming languages in the dataset. This suggests that collaboration
-communities do, in large part, form around languages.
+communities do, in large part, form around languages. Some intra-language
+collaboration is also evident, especially related to JavaScript; this might be
+explained by JavaScript's use as a secondary, client-side language in web
+applications written in another language.
 
 \section{Conclusions}
 On analyzing the network of collaboration between top GitHub repositories, we
 find that programming language use is a reasonable indicator of community
-structure, and vice versa.
+structure, and vice versa. Still, there is plenty of collaborative activity
+between projects using different languages.
+
+A more complete picture might be obtained by lowering the threshold for
+including repositories, thereby including less popular side projects, or by
+changing the time range under consideration. Further work might also more
+carefully analyze the relationships between languages themselves, ideally
+incorporating data on non-primary languages used in a project.
 
 \section{Acknowledgements}
 This project is being developed both as the final project for a course in social

@@ -42,7 +42,6 @@ weights.
 langs = sorted(by_language.subgraphs(),
     key=lambda x: len(x.vs), reverse=True)
 names = [s.vs[0]['language'].replace('#', '\#') for s in langs]
-
 langs.append(g) # Include statistics on entire graph
 names.append('OVERALL')
 
