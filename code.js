@@ -9,7 +9,7 @@ $(function () {
   }).graphProperties({
     minNodeSize: 1,
     maxNodeSize: 10,
-    minEdgeSize: 1,
+    minEdgeSize: 0.3,
     maxEdgeSize: 30
   }).mouseProperties({
     maxRatio: 32
