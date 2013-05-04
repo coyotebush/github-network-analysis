@@ -81,13 +81,6 @@ graph.bind('overnodes', function(event) {
   resetHighlight();
 });
 
-graph.parseJson('repositories.json', function() {
-  graph.iterEdges(function(e){
-    e.size=e.weight;
-  });
-  graph.draw();
-});
-
 $('#filter').on('keydown change', function(event) {
   if (filterTimeout !== false)
     clearTimeout(filterTimeout);
@@ -112,4 +105,11 @@ $('#filter').on('keydown change', function(event) {
       filterActive = false;
     }
   }, 300);
+});
+
+graph.parseJson('repositories.json', function() {
+  graph.iterEdges(function(e){
+    e.size=e.weight;
+  });
+  graph.draw();
 });
