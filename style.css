@@ -6,7 +6,7 @@ body {
 #graph {
     position: absolute;
     top: 0;
-    bottom: 2em;
+    bottom: 0;
     left: 0;
     right: 0;
 }
@@ -16,6 +16,7 @@ body {
     left: 0;
     right: 0;
     background-color: white;
+    color: black;
     font-family: sans-serif;
     font-size: 12px;
     text-align: center;
