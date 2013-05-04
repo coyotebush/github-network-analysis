@@ -1,0 +1,38 @@
+body {
+    background-color: #111;
+    margin: 0;
+    padding: 0;
+}
+#gh-ribbon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 0;
+}
+#graph {
+    position: absolute;
+    top: 0;
+    bottom: 2em;
+    left: 0;
+    right: 0;
+}
+#info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: white;
+    font-family: sans-serif;
+    font-size: 12px;
+    text-align: center;
+    margin: 0;
+    padding: 0.5em 1em;
+}
+input {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    width: 20em;
+    font-size: 12px;
+}
+
