@@ -14,11 +14,48 @@ var graph = sigma.init(document.getElementById('graph')).drawingProperties({
   maxRatio: 32
 }).bind('upnodes', function(e) {
   window.open(graph.getNodes(e.content[0]).attr.attributes.name);
-}).bind('overnodes', function(event) {
-  /* adapted from sigma.js example */
+});
+
+/* adapted from sigma.js example */
+var greyColor = '#666';
+var filterActive = false;
+var filterTimeout = false;
+
+function highlightNodes(nodeFilter) {
+  graph.iterNodes(function(n){
+    if(!nodeFilter(n)){
+      if(!n.attr['grey']){
+        n.attr['true_color'] = n.color;
+        n.color = greyColor;
+        n.attr['grey'] = 1;
+        n['forceLabel'] = 0;
+      }
+    }else{
+      n.color = n.attr['grey'] ? n.attr['true_color'] : n.color;
+      n.attr['grey'] = 0;
+      n['forceLabel'] = 1;
+    }
+  }).draw(2,2,2);
+}
+
+function resetHighlight() {
+  graph.iterEdges(function(e){
+    e.color = e.attr['grey'] ? e.attr['true_color'] : e.color;
+    e.attr['grey'] = 0;
+  }).iterNodes(function(n){
+    n.color = n.attr['grey'] ? n.attr['true_color'] : n.color;
+    n.attr['grey'] = 0;
+    n['forceLabel'] = 0;
+  }).draw(2,2,2);
+}
+
+graph.bind('overnodes', function(event) {
   var nodes = event.content;
   var neighbors = {};
-  var greyColor = '#666';
+
+  if (filterActive)
+    return;
+
   graph.iterEdges(function(e){
     if(nodes.indexOf(e.source)<0 && nodes.indexOf(e.target)<0){
       if(!e.attr['grey']){
@@ -33,28 +70,14 @@ var graph = sigma.init(document.getElementById('graph')).drawingProperties({
       neighbors[e.source] = 1;
       neighbors[e.target] = 1;
     }
-  }).iterNodes(function(n){
-    if(!neighbors[n.id]){
-      if(!n.attr['grey']){
-        n.attr['true_color'] = n.color;
-        n.color = greyColor;
-        n.attr['grey'] = 1;
-      }
-    }else{
-      n.color = n.attr['grey'] ? n.attr['true_color'] : n.color;
-      n.attr['grey'] = 0;
-      n['forceLabel'] = 1;
-    }
-  }).draw(2,2,2);
+  });
+  highlightNodes(function(n) {
+    return neighbors[n.id];
+  });
 }).bind('outnodes',function(){
-  graph.iterEdges(function(e){
-    e.color = e.attr['grey'] ? e.attr['true_color'] : e.color;
-    e.attr['grey'] = 0;
-  }).iterNodes(function(n){
-    n.color = n.attr['grey'] ? n.attr['true_color'] : n.color;
-    n.attr['grey'] = 0;
-    n['forceLabel'] = 0;
-  }).draw(2,2,2);
+  if (filterActive)
+    return;
+  resetHighlight();
 });
 
 graph.parseJson('repositories.json', function() {
@@ -62,4 +85,24 @@ graph.parseJson('repositories.json', function() {
     e.size=e.weight;
   });
   graph.draw();
+});
+
+$('#filter').on('keypress change', function(event) {
+  var filterString = $(this).val();
+
+  if (filterTimeout !== false)
+    clearTimeout(filterTimeout);
+  filterTimeout = setTimeout(function() {
+    console.log('filtering');
+    if (filterString.length > 0) {
+      filterActive = true;
+      highlightNodes(function(n) {
+        return n['label'].indexOf(filterString) >= 0;
+      });
+    }
+    else {
+      resetHighlight();
+      filterActive = false;
+    }
+  }, 500);
 });
