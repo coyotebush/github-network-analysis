@@ -86,13 +86,12 @@ graph.parseJson('repositories.json', function() {
   graph.draw();
 });
 
-$('#filter').on('keypress change', function(event) {
-  var filterString = $(this).val();
-
+$('#filter').on('keydown change', function(event) {
   if (filterTimeout !== false)
     clearTimeout(filterTimeout);
   filterTimeout = setTimeout(function() {
-    console.log('filtering');
+    var filterString = $('#filter').val();
+    console.log('filtering for ' + filterString);
     if (filterString.length > 0) {
       filterActive = true;
       highlightNodes(function(n) {
@@ -103,5 +102,5 @@ $('#filter').on('keypress change', function(event) {
       resetHighlight();
       filterActive = false;
     }
-  }, 500);
+  }, 300);
 });
