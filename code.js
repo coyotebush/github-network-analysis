@@ -96,6 +96,13 @@ $('#filter').on('keydown change', function(event) {
     console.log('filtering for ' + filterString);
     if (filterString.length > 0) {
       filterActive = true;
+      graph.iterEdges(function(e) {
+        if (!e.attr['grey']) {
+          e.attr['true_color'] = e.color;
+          e.color = greyColor;
+          e.attr['grey'] = 1;
+        }
+      });
       highlightNodes(function(n) {
         return n['label'].indexOf(filterString) >= 0;
       });
