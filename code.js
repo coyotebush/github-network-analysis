@@ -23,17 +23,16 @@ var filterTimeout = false;
 
 function highlightNodes(nodeFilter) {
   graph.iterNodes(function(n){
-    if(!nodeFilter(n)){
-      if(!n.attr['grey']){
-        n.attr['true_color'] = n.color;
-        n.color = greyColor;
-        n.attr['grey'] = 1;
-        n['forceLabel'] = 0;
-      }
-    }else{
+    if (nodeFilter(n)) {
       n.color = n.attr['grey'] ? n.attr['true_color'] : n.color;
       n.attr['grey'] = 0;
       n['forceLabel'] = 1;
+    }
+    else if(!n.attr['grey']) {
+      n.attr['true_color'] = n.color;
+      n.color = greyColor;
+      n.attr['grey'] = 1;
+      n['forceLabel'] = 0;
     }
   }).draw(2,2,2);
 }
