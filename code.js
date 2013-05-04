@@ -32,7 +32,7 @@ function highlightNodes(nodeFilter) {
       n.attr['true_color'] = n.color;
       n.color = greyColor;
       n.attr['grey'] = 1;
-      n['forceLabel'] = 0;
+      n['forceLabel'] = -1;
     }
   }).draw(2,2,2);
 }

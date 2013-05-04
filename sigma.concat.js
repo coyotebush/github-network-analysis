@@ -420,12 +420,12 @@ function Graph() {
         case 'x':
         case 'y':
         case 'size':
+        case 'forceLabel':
           n[k] = +params[k];
           break;
         case 'fixed':
         case 'active':
         case 'hidden':
-        case 'forceLabel':
           n[k] = !!params[k];
           break;
         case 'color':
@@ -495,12 +495,12 @@ function Graph() {
         case 'x':
         case 'y':
         case 'size':
+        case 'forceLabel':
           node[k] = +copy[k];
           break;
         case 'fixed':
         case 'active':
         case 'hidden':
-        case 'forceLabel':
           node[k] = !!copy[k];
           break;
         case 'color':
@@ -523,39 +523,46 @@ function Graph() {
    */
   function dropNode(v) {
     var a = (v instanceof Array ? v : [v]) || [];
+    var nodesIdsToRemove = {};
 
+    // Create hash to make lookups faster
     a.forEach(function(id) {
       if (self.nodesIndex[id]) {
-        var index = null;
-        self.nodes.some(function(n, i) {
-          if (n['id'] == id) {
-            index = i;
-            return true;
-          }
-          return false;
-        });
-
-        index != null && self.nodes.splice(index, 1);
-        delete self.nodesIndex[id];
-
-        var edgesToRemove = [];
-        self.edges = self.edges.filter(function(e) {
-          if (e['source']['id'] == id) {
-            delete self.edgesIndex[e['id']];
-            e['target']['degree']--;
-            e['target']['inDegree']--;
-            return false;
-          }else if (e['target']['id'] == id) {
-            delete self.edgesIndex[e['id']];
-            e['source']['degree']--;
-            e['source']['outDegree']--;
-            return false;
-          }
-          return true;
-        });
-      }else {
+        nodesIdsToRemove[id] = true;
+      } else {
         sigma.log('Node "' + id + '" does not exist.');
       }
+    });
+
+    var indexesToRemove = [];
+    self.nodes.forEach(function(n, i) {
+      if (n['id'] in nodesIdsToRemove) {
+        // Add to front, so we have a reverse-sorted list
+        indexesToRemove.unshift(i);
+        // No edges means we are done
+        if (n['degree'] == 0) {
+          delete nodesIdsToRemove[n['id']];
+        }
+      }
+    });
+
+    indexesToRemove.forEach(function(index) {
+      self.nodes.splice(index, 1);
+    });
+
+    self.edges = self.edges.filter(function(e) {
+      if (e['source']['id'] in nodesIdsToRemove) {
+        delete self.edgesIndex[e['id']];
+        e['target']['degree']--;
+        e['target']['inDegree']--;
+        return false;
+      }else if (e['target']['id'] in nodesIdsToRemove) {
+        delete self.edgesIndex[e['id']];
+        e['source']['degree']--;
+        e['source']['outDegree']--;
+        return false;
+      }
+      return true;
     });
 
     return self;
@@ -2002,7 +2009,8 @@ function Plotter(nodesCtx, edgesCtx, labelsCtx, hoverCtx, graph, w, h) {
   function drawLabel(node) {
     var ctx = labelsCtx;
 
-    if (node['displaySize'] >= self.p.labelThreshold || node['forceLabel']) {
+    if (node['displaySize'] >= self.p.labelThreshold && !(node['forceLabel'] < 0)
+        || node['forceLabel'] > 0) {
       var fontSize = self.p.labelSize == 'fixed' ?
                      self.p.defaultLabelSize :
                      self.p.labelSizeRatio * node['displaySize'];
@@ -2812,7 +2820,7 @@ function SigmaPublic(sigmaInstance) {
       validID = edge['source'] && edge['target'] && edge['id'];
       validID &&
         (!safe || !s.graph.edgesIndex[edge['id']]) &&
-        self.addNode(
+        self.addEdge(
           edge['id'],
           edge['source'],
           edge['target'],
