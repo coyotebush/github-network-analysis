@@ -55,6 +55,7 @@ graph.bind('overnodes', function(event) {
   if (filterActive)
     return;
 
+  $('body').css({cursor: 'pointer'});
   graph.iterEdges(function(e){
     if(nodes.indexOf(e.source)<0 && nodes.indexOf(e.target)<0){
       if(!e.attr['grey']){
@@ -76,6 +77,7 @@ graph.bind('overnodes', function(event) {
 }).bind('outnodes',function(){
   if (filterActive)
     return;
+  $('body').css({cursor: 'default'});
   resetHighlight();
 });
 
