@@ -3,12 +3,6 @@ body {
     margin: 0;
     padding: 0;
 }
-#gh-ribbon {
-    position: absolute;
-    top: 0;
-    left: 0;
-    border: 0;
-}
 #graph {
     position: absolute;
     top: 0;
