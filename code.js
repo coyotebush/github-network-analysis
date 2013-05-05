@@ -9,7 +9,7 @@ var graph = sigma.init(document.getElementById('graph')).drawingProperties({
   minNodeSize: 1,
   maxNodeSize: 10,
   minEdgeSize: 0.3,
-  maxEdgeSize: 10,
+  maxEdgeSize: 4,
   edgesPowRatio: 0.5
 }).mouseProperties({
   maxRatio: 32
@@ -110,7 +110,7 @@ $('#filter').on('keydown change', function(event) {
 
 graph.parseJson('repositories.json', function() {
   graph.iterEdges(function(e){
-    e.size=e.weight;
+    e.size=Math.sqrt(e.weight);
   });
   graph.draw();
 });
