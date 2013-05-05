@@ -13,6 +13,9 @@ structure.
 
 **More information and the full analysis: [PDF report](github.pdf)**
 
+My final project for [Social Network Analysis](https://www.coursera.org/course/sna),
+and entry in the [GitHub Data Challenge](https://github.com/blog/1450-the-github-data-challenge-ii).
+
 Credit to [@frewsxcv](https://github.com/frewsxcv) and [@ThePicard](https://github.com/ThePicard) for their help.
 
 General workflow
