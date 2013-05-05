@@ -8,8 +8,9 @@ var graph = sigma.init(document.getElementById('graph')).drawingProperties({
 }).graphProperties({
   minNodeSize: 1,
   maxNodeSize: 10,
-  minEdgeSize: 0.5,
-  maxEdgeSize: 10
+  minEdgeSize: 0.3,
+  maxEdgeSize: 10,
+  edgesPowRatio: 0.5
 }).mouseProperties({
   maxRatio: 32
 }).bind('upnodes', function(e) {
