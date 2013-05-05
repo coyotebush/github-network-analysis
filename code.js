@@ -82,7 +82,7 @@ graph.bind('overnodes', function(event) {
   resetHighlight();
 });
 
-$('#filter').on('keydown change', function(event) {
+$('#filter').on('search keydown change', function(event) {
   if (filterTimeout !== false)
     clearTimeout(filterTimeout);
   filterTimeout = setTimeout(function() {
