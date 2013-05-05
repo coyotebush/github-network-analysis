@@ -53,8 +53,9 @@ graph.bind('overnodes', function(event) {
   var nodes = event.content;
   var neighbors = {};
 
-  if (filterActive)
+  if (filterActive) {
     return;
+  }
 
   $('body').css({cursor: 'pointer'});
   graph.iterEdges(function(e){
@@ -76,18 +77,19 @@ graph.bind('overnodes', function(event) {
     return neighbors[n.id];
   });
 }).bind('outnodes',function(){
-  if (filterActive)
+  if (filterActive) {
     return;
+  }
   $('body').css({cursor: 'default'});
   resetHighlight();
 });
 
 $('#filter').on('search keydown change', function(event) {
-  if (filterTimeout !== false)
+  if (filterTimeout !== false) {
     clearTimeout(filterTimeout);
+  }
   filterTimeout = setTimeout(function() {
     var filterString = $('#filter').val();
-    console.log('filtering for ' + filterString);
     if (filterString.length > 0) {
       filterActive = true;
       graph.iterEdges(function(e) {
