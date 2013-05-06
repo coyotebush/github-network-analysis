@@ -16,6 +16,8 @@ structure.
 My final project for [Social Network Analysis](https://www.coursera.org/course/sna),
 and entry in the [GitHub Data Challenge](https://github.com/blog/1450-the-github-data-challenge-ii).
 
+Created using [igraph](http://igraph.sourceforge.net/), [Gephi](http://gephi.org/) and [sigma.js](http://sigmajs.org/).
+
 Credit to [@frewsxcv](https://github.com/frewsxcv) and [@ThePicard](https://github.com/ThePicard) for their help.
 
 General workflow
